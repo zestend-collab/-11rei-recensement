@@ -56,8 +56,10 @@
   td{padding:.55rem .8rem;vertical-align:top;font-size:.82rem;line-height:1.4}
   td.num{color:var(--muted);font-size:.72rem;width:38px}
   td.nom{font-family:'EB Garamond',serif;font-size:.95rem;font-weight:600;min-width:180px}
-  td.nom a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--aged)}
-  td.nom a:hover{color:var(--red);border-color:var(--red)}
+  td.nom a.fiche{color:var(--red);text-decoration:none;border-bottom:1px dotted var(--red)}
+  td.nom a.fiche:hover{border-bottom-style:solid}
+  td.nom a.photo{font-size:.8rem;margin-left:.3rem;opacity:.8;text-decoration:none;vertical-align:middle}
+  td.nom a.photo:hover{opacity:1}
   td.date{color:var(--muted);font-size:.75rem;min-width:160px}
   td.grade{min-width:90px}
   td.cie{min-width:110px}
@@ -182,9 +184,9 @@ function render(rows){
 
     // Nom cell
     let nomHTML=d.URL
-      ? `<a href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
+      ? `<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
       : d.Nom;
-    if(d.portrait) nomHTML+=`<span class="icons" title="Portrait disponible">📷</span>`;
+    if(d.photo) nomHTML+=` <a class="photo" href="https://www.11regimentetranger.com/portraits" target="_blank" rel="noopener" title="Portrait disponible sur la page Portraits">📷</a>`;
 
     // Destin cell
     let destHTML='';
