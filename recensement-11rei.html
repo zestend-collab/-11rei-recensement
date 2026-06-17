@@ -58,6 +58,8 @@
   td.nom{font-family:'EB Garamond',serif;font-size:.95rem;font-weight:600;min-width:180px}
   td.nom a.fiche{color:var(--red);text-decoration:none;border-bottom:1px dotted var(--red)}
   td.nom a.fiche:hover{border-bottom-style:solid}
+  td.nom a.alpha{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--aged)}
+  td.nom a.alpha:hover{color:var(--muted);border-bottom-color:var(--muted)}
   td.nom a.photo{font-size:.8rem;margin-left:.3rem;opacity:.8;text-decoration:none;vertical-align:middle}
   td.nom a.photo:hover{opacity:1}
   td.date{color:var(--muted);font-size:.75rem;min-width:160px}
@@ -183,9 +185,12 @@ function render(rows){
     tr.className='row-'+cat;
 
     // Nom cell
+    const firstLetter=d.Nom.replace(/^\?/,'').charAt(0).toLowerCase();
+    const alphaPage={'u':'uvw','v':'uvw','w':'uvw','x':'xyz','y':'xyz','z':'xyz'}[firstLetter]||firstLetter;
+    const alphaURL=`https://www.11regimentetranger.com/recensement-11e-rei/${alphaPage}`;
     let nomHTML=d.URL
       ? `<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
-      : d.Nom;
+      : `<a class="alpha" href="${alphaURL}" target="_blank" rel="noopener">${d.Nom}</a>`;
     if(d.photo) nomHTML+=` <a class="photo" href="https://www.11regimentetranger.com/portraits" target="_blank" rel="noopener" title="Portrait disponible sur la page Portraits">📷</a>`;
 
     // Destin cell
