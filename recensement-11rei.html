@@ -6,272 +6,83 @@
 <title>Recensement — 11ᵉ Régiment Étranger d'Infanterie</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#1a1a18;--parchment:#f2ede4;--sand:#e8dfd0;--aged:#c9b99a;
+    --red:#8b2e2e;--green:#4a6741;--muted:#6b6355;--white:#faf8f4;
+  }
+  body{background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;font-weight:300;min-height:100vh}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  header{background:var(--ink);color:var(--parchment);padding:2.5rem 2rem 2rem;border-bottom:3px solid var(--red)}
+  .header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .regiment{font-family:'EB Garamond',serif;font-size:clamp(1.4rem,3vw,2.1rem);font-weight:600;letter-spacing:.02em;line-height:1.15}
+  .subtitle{font-size:.75rem;color:var(--aged);letter-spacing:.12em;text-transform:uppercase;margin-top:.35rem}
+  .counter-badge{background:var(--red);color:#fff;font-family:'EB Garamond',serif;font-size:1.05rem;padding:.4rem 1rem;letter-spacing:.04em;white-space:nowrap}
+  #visible-count{font-weight:600;font-size:1.2rem}
 
-  :root {
-    --ink:       #1a1a18;
-    --parchment: #f2ede4;
-    --sand:      #e8dfd0;
-    --aged:      #c9b99a;
-    --red:       #8b2e2e;
-    --muted:     #6b6355;
-    --white:     #faf8f4;
-  }
+  .controls{background:var(--sand);border-bottom:1px solid var(--aged);padding:1.1rem 2rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .controls-inner{max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+  .search-wrap{position:relative;flex:1 1 220px}
+  .search-wrap svg{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+  input[type=search]{width:100%;padding:.55rem .75rem .55rem 2.2rem;border:1px solid var(--aged);background:var(--white);color:var(--ink);font-family:'Inter',sans-serif;font-size:.85rem;outline:none;border-radius:2px;transition:border-color .15s}
+  input[type=search]:focus{border-color:var(--red)}
+  input[type=search]::placeholder{color:var(--muted)}
+  select{padding:.55rem 2rem .55rem .7rem;border:1px solid var(--aged);background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b6355'/%3E%3C/svg%3E") no-repeat right .6rem center;-webkit-appearance:none;appearance:none;color:var(--ink);font-family:'Inter',sans-serif;font-size:.82rem;cursor:pointer;outline:none;border-radius:2px;flex-shrink:0;transition:border-color .15s}
+  select:focus{border-color:var(--red)}
+  .btn-reset{background:none;border:1px solid var(--aged);color:var(--muted);font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.55rem .9rem;cursor:pointer;border-radius:2px;transition:all .15s;white-space:nowrap}
+  .btn-reset:hover{background:var(--red);color:#fff;border-color:var(--red)}
 
-  body {
-    background: var(--parchment);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    min-height: 100vh;
-  }
+  .legend{max-width:1300px;margin:.6rem auto 0;padding:0 2rem;display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.75rem;color:var(--muted)}
+  .legend-item{display:flex;align-items:center;gap:.4rem}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .dot-mort{background:var(--red)}.dot-prison{background:var(--green)}.dot-deporte{background:#7a4a8a}.dot-resistant{background:#2a6080}.dot-unknown{background:var(--aged)}
 
-  /* ── HEADER ── */
-  header {
-    background: var(--ink);
-    color: var(--parchment);
-    padding: 2.5rem 2rem 2rem;
-    border-bottom: 3px solid var(--red);
-  }
-  .header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  header .regiment {
-    font-family: 'EB Garamond', serif;
-    font-size: clamp(1.4rem, 3vw, 2.1rem);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    line-height: 1.15;
-  }
-  header .subtitle {
-    font-size: 0.75rem;
-    color: var(--aged);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 0.35rem;
-  }
-  .counter-badge {
-    background: var(--red);
-    color: #fff;
-    font-family: 'EB Garamond', serif;
-    font-size: 1.05rem;
-    padding: 0.4rem 1rem;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-  }
-  #visible-count { font-weight: 600; font-size: 1.2rem; }
+  .table-wrap{max-width:1300px;margin:1rem auto 3rem;padding:0 2rem;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--aged)}
+  thead tr{background:var(--ink);color:var(--parchment)}
+  th{font-family:'Inter',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.75rem .8rem;text-align:left;white-space:nowrap;cursor:pointer;user-select:none}
+  th:hover{background:#2e2e2b}
+  th .si{margin-left:.3rem;opacity:.5;font-size:.65rem}
+  th.sorted .si{opacity:1;color:var(--aged)}
 
-  /* ── CONTROLS ── */
-  .controls {
-    background: var(--sand);
-    border-bottom: 1px solid var(--aged);
-    padding: 1.1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-  .controls-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    align-items: center;
-  }
-  .search-wrap {
-    position: relative;
-    flex: 1 1 220px;
-  }
-  .search-wrap svg {
-    position: absolute;
-    left: 0.7rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--muted);
-    pointer-events: none;
-  }
-  input[type="search"] {
-    width: 100%;
-    padding: 0.55rem 0.75rem 0.55rem 2.2rem;
-    border: 1px solid var(--aged);
-    background: var(--white);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    outline: none;
-    border-radius: 2px;
-    transition: border-color 0.15s;
-  }
-  input[type="search"]:focus { border-color: var(--red); }
-  input[type="search"]::placeholder { color: var(--muted); }
+  tbody tr{border-bottom:1px solid var(--sand);transition:background .1s}
+  tbody tr:hover{background:#f0ece3}
+  tbody tr.row-mort{border-left:3px solid var(--red)}
+  tbody tr.row-prison{border-left:3px solid var(--green)}
+  tbody tr.row-deporte{border-left:3px solid #7a4a8a}
+  tbody tr.row-resistant{border-left:3px solid #2a6080}
+  tbody tr.row-unknown{border-left:3px solid transparent}
 
-  select {
-    padding: 0.55rem 2rem 0.55rem 0.7rem;
-    border: 1px solid var(--aged);
-    background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b6355'/%3E%3C/svg%3E") no-repeat right 0.6rem center;
-    -webkit-appearance: none;
-    appearance: none;
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
-    cursor: pointer;
-    outline: none;
-    border-radius: 2px;
-    flex-shrink: 0;
-    transition: border-color 0.15s;
-  }
-  select:focus { border-color: var(--red); }
+  td{padding:.55rem .8rem;vertical-align:top;font-size:.82rem;line-height:1.4}
+  td.num{color:var(--muted);font-size:.72rem;width:38px}
+  td.nom{font-family:'EB Garamond',serif;font-size:.95rem;font-weight:600;min-width:180px}
+  td.nom a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--aged)}
+  td.nom a:hover{color:var(--red);border-color:var(--red)}
+  td.date{color:var(--muted);font-size:.75rem;min-width:160px}
+  td.grade{min-width:90px}
+  td.cie{min-width:110px}
+  td.destin{min-width:220px}
 
-  .btn-reset {
-    background: none;
-    border: 1px solid var(--aged);
-    color: var(--muted);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.55rem 0.9rem;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .btn-reset:hover { background: var(--red); color: #fff; border-color: var(--red); }
+  .badge{display:inline-block;font-size:.68rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .45rem;border-radius:2px;white-space:nowrap}
+  .badge-mort{background:#f5e0e0;color:#7a2020}
+  .badge-deporte{background:#f0e0f5;color:#5a2070}
+  .badge-resistant{background:#ddeef5;color:#1a5070}
+  .plieu{font-size:.74rem;color:var(--muted);margin-top:.2rem;line-height:1.35}
+  .dlieu{font-size:.74rem;color:#9a3a3a;margin-top:.15rem}
+  .icons{font-size:.8rem;margin-left:.3rem;opacity:.7}
 
-  /* ── LEGEND ── */
-  .legend {
-    max-width: 1200px;
-    margin: 0.8rem auto 0;
-    padding: 0 2rem;
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-  .legend-item { display: flex; align-items: center; gap: 0.4rem; }
-  .dot {
-    width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
-  }
-  .dot-mort    { background: #8b2e2e; }
-  .dot-prison  { background: #4a6741; }
-  .dot-unknown { background: var(--aged); }
+  .loading{text-align:center;padding:4rem;color:var(--muted);font-family:'EB Garamond',serif;font-size:1.1rem;font-style:italic}
+  .empty-state{text-align:center;padding:3rem;color:var(--muted);display:none}
+  .empty-state p{font-family:'EB Garamond',serif;font-size:1.1rem;font-style:italic}
 
-  /* ── TABLE ── */
-  .table-wrap {
-    max-width: 1200px;
-    margin: 1.2rem auto 3rem;
-    padding: 0 2rem;
-    overflow-x: auto;
-  }
+  footer{text-align:center;padding:1.5rem;font-size:.72rem;color:var(--muted);border-top:1px solid var(--aged);letter-spacing:.06em}
+  footer a{color:var(--red);text-decoration:none}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--white);
-    border: 1px solid var(--aged);
-  }
-  thead tr {
-    background: var(--ink);
-    color: var(--parchment);
-  }
-  th {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.75rem 0.8rem;
-    text-align: left;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-  }
-  th:hover { background: #2e2e2b; }
-  th .sort-icon { margin-left: 0.3rem; opacity: 0.5; font-size: 0.65rem; }
-  th.sorted .sort-icon { opacity: 1; color: var(--aged); }
-
-  tbody tr {
-    border-bottom: 1px solid var(--sand);
-    transition: background 0.1s;
-  }
-  tbody tr:hover { background: #f0ece3; }
-  tbody tr.row-mort   { border-left: 3px solid var(--red); }
-  tbody tr.row-prison { border-left: 3px solid #4a6741; }
-  tbody tr.row-unknown { border-left: 3px solid transparent; }
-
-  td {
-    padding: 0.6rem 0.8rem;
-    vertical-align: top;
-    font-size: 0.82rem;
-    line-height: 1.4;
-  }
-  td.num { color: var(--muted); font-size: 0.72rem; width: 38px; }
-  td.nom {
-    font-family: 'EB Garamond', serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    min-width: 180px;
-  }
-  td.date { color: var(--muted); font-size: 0.75rem; min-width: 130px; }
-  td.grade { min-width: 90px; }
-  td.cie   { min-width: 120px; }
-  td.destin { min-width: 200px; }
-
-  .badge {
-    display: inline-block;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.15rem 0.45rem;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-  .badge-mort    { background: #f5e0e0; color: #7a2020; }
-  .badge-prison  { background: #e0ead9; color: #3a5432; }
-
-  .destin-detail {
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-top: 0.2rem;
-    line-height: 1.35;
-  }
-
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    text-align: center;
-    padding: 3rem 2rem;
-    color: var(--muted);
-    display: none;
-  }
-  .empty-state p { font-family: 'EB Garamond', serif; font-size: 1.1rem; font-style: italic; }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.72rem;
-    color: var(--muted);
-    border-top: 1px solid var(--aged);
-    letter-spacing: 0.06em;
-  }
-
-  @media (max-width: 600px) {
-    .controls { padding: 0.8rem 1rem; }
-    .table-wrap { padding: 0 0.5rem; }
-    header { padding: 1.5rem 1rem 1.2rem; }
-    td.date, td.grade { display: none; }
+  @media(max-width:600px){
+    .controls{padding:.8rem 1rem}
+    .table-wrap{padding:0 .3rem}
+    header{padding:1.5rem 1rem 1.2rem}
+    td.date,td.grade{display:none}
   }
 </style>
 </head>
@@ -283,214 +94,185 @@
       <div class="regiment">11ᵉ Régiment Étranger d'Infanterie</div>
       <div class="subtitle">Campagne de France · Novembre 1939 — Juin 1940 · Recensement biographique</div>
     </div>
-    <div class="counter-badge">
-      <span id="visible-count">—</span> légionnaires affichés
-    </div>
+    <div class="counter-badge"><span id="visible-count">—</span> légionnaires affichés</div>
   </div>
 </header>
 
 <div class="controls">
   <div class="controls-inner">
     <div class="search-wrap">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-      </svg>
-      <input type="search" id="search" placeholder="Rechercher un nom, lieu, nationalité…" autocomplete="off">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" id="search" placeholder="Rechercher un nom, lieu, stalag…" autocomplete="off">
     </div>
-    <select id="filter-nationalite">
-      <option value="">Toutes nationalités</option>
-    </select>
-    <select id="filter-cie">
-      <option value="">Toutes compagnies</option>
-    </select>
+    <select id="filter-nat"><option value="">Toutes nationalités</option></select>
+    <select id="filter-cie"><option value="">Toutes compagnies</option></select>
     <select id="filter-destin">
       <option value="">Tous destins</option>
       <option value="mort">Mort pour la France</option>
-      <option value="prisonnier">Prisonnier</option>
+      <option value="prison">Prisonnier</option>
+      <option value="deporte">Déporté</option>
+      <option value="resistant">Résistant</option>
       <option value="inconnu">Non renseigné</option>
     </select>
     <button class="btn-reset" id="reset">✕ Réinitialiser</button>
   </div>
 </div>
 
-<div class="legend" style="max-width:1200px;margin:0.8rem auto 0;padding:0 2rem;">
+<div class="legend" style="max-width:1300px;margin:.6rem auto 0;padding:0 2rem">
   <span class="legend-item"><span class="dot dot-mort"></span> Mort pour la France</span>
   <span class="legend-item"><span class="dot dot-prison"></span> Prisonnier</span>
+  <span class="legend-item"><span class="dot dot-deporte"></span> Déporté</span>
+  <span class="legend-item"><span class="dot dot-resistant"></span> Résistant</span>
   <span class="legend-item"><span class="dot dot-unknown"></span> Non renseigné</span>
 </div>
 
 <div class="table-wrap">
-  <table id="main-table">
+  <div class="loading" id="loading">Chargement des données…</div>
+  <table id="main-table" style="display:none">
     <thead>
       <tr>
-        <th data-col="num" class="sorted">N° <span class="sort-icon">↑</span></th>
-        <th data-col="nom">Nom <span class="sort-icon">↕</span></th>
-        <th data-col="date">Date · Lieu de naissance <span class="sort-icon">↕</span></th>
-        <th data-col="grade">Grade <span class="sort-icon">↕</span></th>
-        <th data-col="cie">Compagnie <span class="sort-icon">↕</span></th>
-        <th data-col="destin">Destin <span class="sort-icon">↕</span></th>
+        <th data-col="num" class="sorted">N° <span class="si">↑</span></th>
+        <th data-col="Nom">Nom <span class="si">↕</span></th>
+        <th data-col="date">Naissance <span class="si">↕</span></th>
+        <th data-col="grade">Grade <span class="si">↕</span></th>
+        <th data-col="Cie">Compagnie <span class="si">↕</span></th>
+        <th data-col="destin">Destin <span class="si">↕</span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
   </table>
-  <div class="empty-state" id="empty-state">
-    <p>Aucun légionnaire ne correspond à ces critères.</p>
-  </div>
+  <div class="empty-state" id="empty-state"><p>Aucun légionnaire ne correspond à ces critères.</p></div>
 </div>
 
 <footer>
-  Sources : Mémoire des hommes · Archives militaires SHD Vincennes & Aubagne · Journal officiel · Archives de captivité<br>
-  <a href="https://www.11regimentetranger.com" style="color:var(--red);text-decoration:none;">11regimentetranger.com</a>
+  Sources : Mémoire des hommes · SHD Vincennes &amp; Aubagne · Journal officiel · Archives de captivité<br>
+  <a href="https://www.11regimentetranger.com">11regimentetranger.com</a>
 </footer>
 
+<script src="data.js"></script>
 <script>
-const DATA = [
-  { num:1,  nom:"?OCKZECK",               date:"",                                          nat:"",               grade:"légionnaire",    cie:"2è compagnie",              mort:"",                    prison:"",                 detail:"" },
-  { num:2,  nom:"ADAM Franck",             date:"Belgique",                                  nat:"Belgique",       grade:"",               cie:"CA1",                       mort:"",                    prison:"",                 detail:"" },
-  { num:3,  nom:"ADAMEC Juraj « Georges »",date:"06/02/1911 · Detva · Tchécoslovaquie",      nat:"Tchécoslovaquie",grade:"caporal chef",   cie:"10è compagnie",             mort:"Mort le 27/05/1940",  prison:"",                 detail:"" },
-  { num:4,  nom:"ADDES Marcel",            date:"18/10/1912 · Paris 14 · France",            nat:"France",         grade:"caporal",        cie:"6è compagnie",              mort:"",                    prison:"Fait prisonnier",  detail:"" },
-  { num:5,  nom:"ADELL",                   date:"",                                          nat:"",               grade:"légionnaire",    cie:"Compagnie de commandement", mort:"",                    prison:"",                 detail:"" },
-  { num:6,  nom:"ADEVISE Louis Jean François",date:"10/07/1905 · Landévant · France",        nat:"France",         grade:"2è classe",      cie:"7è compagnie",              mort:"Mort le 11/06/1940",  prison:"",                 detail:"" },
-  { num:7,  nom:"ADLER Nachem",            date:"",                                          nat:"",               grade:"2è classe",      cie:"6è compagnie",              mort:"",                    prison:"",                 detail:"" },
-  { num:8,  nom:"AGOSTINI Luigi Folco « Louis »",date:"30/01/1920 · Mercatello · Italie",    nat:"Italie",         grade:"légionnaire",    cie:"6è compagnie",              mort:"Mort le 18/06/1940",  prison:"",                 detail:"" },
-  { num:9,  nom:"AGOTICS Sandor « Alexandre »",date:"20/09/1909 · Borod · Roumanie",         nat:"Roumanie",       grade:"1ère classe",    cie:"5è compagnie",              mort:"",                    prison:"Liste prisonniers n°18 du 19/09/1940", detail:"Interné au stalag VII A mle 179. À Landshut en 1941-42." },
-  { num:10, nom:"AGUET Paul",              date:"16/01/1906 · Daillen · Suisse",             nat:"Suisse",         grade:"caporal chef",   cie:"",                          mort:"",                    prison:"Liste prisonniers n°11 du 05/09/1940", detail:"Frontstalag 161 (Nancy) mle 802 puis stalag VII A. À Landshut en 1942, employé dans une ferme." },
-  { num:11, nom:"AGUSTI HERVAS Rámon",     date:"09/08/1918 · Sagunto · Espagne",            nat:"Espagne",        grade:"2è classe",      cie:"",                          mort:"",                    prison:"Liste prisonniers n°18 du 19/09/1940", detail:"Fait prisonnier le 21/06/1940 au bois du Fays. Frontstalag 162 puis stalag XVII B mle 55492." },
-  { num:12, nom:"ALBA CROVAS Vicente",     date:"13/03/1911 · Madrid · Espagne",             nat:"Espagne",        grade:"caporal",        cie:"",                          mort:"",                    prison:"",                 detail:"Interné au stalag XI B Fallingbostel." },
-  { num:13, nom:"ALBERCA Gabriel",         date:"04/08/1904 · Valence · Espagne",            nat:"Espagne",        grade:"2è classe",      cie:"10è compagnie",             mort:"Mort le 22/05/1940",  prison:"",                 detail:"" },
-  { num:14, nom:"ALCADE MARTIN Francisco", date:"11/05/1917 · Albondon · Espagne",           nat:"Espagne",        grade:"2è classe",      cie:"",                          mort:"",                    prison:"",                 detail:"Interné au stalag VI C mle 57169." },
-];
+let sortCol='num', sortDir=1;
 
-// ── Extract nationality from date field if not set ──
-function getNat(row) {
-  if (row.nat) return row.nat;
-  // Try to parse country from date string like "Belgique" or "06/02/1911 · Detva · Belgique"
-  const parts = row.date.split('·');
-  if (parts.length >= 3) return parts[parts.length - 1].trim();
-  if (parts.length === 1 && row.date && !row.date.match(/\d/)) return row.date.trim();
-  return "";
-}
-
-// ── Populate filter dropdowns ──
-function buildFilters() {
-  const nats = [...new Set(DATA.map(r => getNat(r)).filter(Boolean))].sort();
-  const cies = [...new Set(DATA.map(r => r.cie).filter(Boolean))].sort();
-
-  const natSel = document.getElementById('filter-nationalite');
-  nats.forEach(n => {
-    const o = document.createElement('option');
-    o.value = n; o.textContent = n;
-    natSel.appendChild(o);
-  });
-
-  const cieSel = document.getElementById('filter-cie');
-  cies.forEach(c => {
-    const o = document.createElement('option');
-    o.value = c; o.textContent = c;
-    cieSel.appendChild(o);
-  });
-}
-
-// ── Determine destin category ──
-function destinCat(row) {
-  if (row.mort) return 'mort';
-  if (row.prison) return 'prisonnier';
+function destCat(d){
+  if(d.Mort) return 'mort';
+  if(d.Deporteracial) return 'deporte';
+  if(d.resistant) return 'resistant';
+  if(d.Prisonnier||d.Plieu) return 'prison';
   return 'inconnu';
 }
 
-// ── Render rows ──
-let sortCol = 'num', sortDir = 1;
-
-function render(rows) {
-  const tbody = document.getElementById('tbody');
-  tbody.innerHTML = '';
-  rows.forEach(row => {
-    const cat = destinCat(row);
-    const tr = document.createElement('tr');
-    tr.className = cat === 'mort' ? 'row-mort' : cat === 'prisonnier' ? 'row-prison' : 'row-unknown';
-
-    let destinHTML = '';
-    if (cat === 'mort') {
-      destinHTML = `<span class="badge badge-mort">✝ ${row.mort}</span>`;
-    } else if (cat === 'prisonnier') {
-      destinHTML = `<span class="badge badge-prison">⛓ Prisonnier</span>`;
-      if (row.prison) destinHTML += `<div class="destin-detail">${row.prison}</div>`;
-    }
-    if (row.detail) destinHTML += `<div class="destin-detail">${row.detail}</div>`;
-
-    tr.innerHTML = `
-      <td class="num">${row.num}</td>
-      <td class="nom">${row.nom}</td>
-      <td class="date">${row.date || '—'}</td>
-      <td class="grade">${row.grade || '—'}</td>
-      <td class="cie">${row.cie || '—'}</td>
-      <td class="destin">${destinHTML || '<span style="color:var(--aged)">—</span>'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  document.getElementById('visible-count').textContent = rows.length;
-  document.getElementById('empty-state').style.display = rows.length === 0 ? 'block' : 'none';
-  document.getElementById('main-table').style.display = rows.length === 0 ? 'none' : 'table';
+function buildFilters(){
+  const nats=[...new Set(DATA.map(d=>d.nationalite).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const cies=[...new Set(DATA.map(d=>d.Cie).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const ns=document.getElementById('filter-nat');
+  nats.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;ns.appendChild(o)});
+  const cs=document.getElementById('filter-cie');
+  cies.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cs.appendChild(o)});
 }
 
-function filterAndRender() {
-  const q     = document.getElementById('search').value.toLowerCase();
-  const nat   = document.getElementById('filter-nationalite').value;
-  const cie   = document.getElementById('filter-cie').value;
-  const dest  = document.getElementById('filter-destin').value;
+function render(rows){
+  const tbody=document.getElementById('tbody');
+  tbody.innerHTML='';
+  const frag=document.createDocumentFragment();
 
-  let rows = DATA.filter(row => {
-    const text = [row.nom, row.date, row.grade, row.cie, row.mort, row.prison, row.detail].join(' ').toLowerCase();
-    if (q && !text.includes(q)) return false;
-    if (nat && getNat(row) !== nat) return false;
-    if (cie && row.cie !== cie) return false;
-    if (dest && destinCat(row) !== dest) return false;
+  rows.forEach(d=>{
+    const cat=destCat(d);
+    const tr=document.createElement('tr');
+    tr.className='row-'+cat;
+
+    // Nom cell
+    let nomHTML=d.URL
+      ? `<a href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
+      : d.Nom;
+    if(d.portrait) nomHTML+=`<span class="icons" title="Portrait disponible">📷</span>`;
+
+    // Destin cell
+    let destHTML='';
+    if(cat==='mort'){
+      destHTML=`<span class="badge badge-mort">✝ ${d.Mort}</span>`;
+      if(d.Dlieu) destHTML+=`<div class="dlieu">📍 ${d.Dlieu}</div>`;
+    } else if(cat==='deporte'){
+      destHTML=`<span class="badge badge-deporte">⬛ Déporté</span>`;
+      if(d.Plieu) destHTML+=`<div class="plieu">${d.Plieu}</div>`;
+    } else if(cat==='resistant'){
+      destHTML=`<span class="badge badge-resistant">⚑ Résistant</span>`;
+      if(d.Plieu) destHTML+=`<div class="plieu">${d.Plieu}</div>`;
+    } else if(cat==='prison'){
+      if(d.Plieu) destHTML=`<div class="plieu">${d.Plieu}</div>`;
+      else if(d.Prisonnier) destHTML=`<div class="plieu">${d.Prisonnier}</div>`;
+    }
+
+    tr.innerHTML=`
+      <td class="num">${d.num||''}</td>
+      <td class="nom">${nomHTML}</td>
+      <td class="date">${d.date||'—'}</td>
+      <td class="grade">${d.grade||'—'}</td>
+      <td class="cie">${d.Cie||'—'}</td>
+      <td class="destin">${destHTML||'<span style="color:var(--aged)">—</span>'}</td>`;
+    frag.appendChild(tr);
+  });
+
+  tbody.appendChild(frag);
+  document.getElementById('visible-count').textContent=rows.length;
+  const empty=rows.length===0;
+  document.getElementById('empty-state').style.display=empty?'block':'none';
+  document.getElementById('main-table').style.display=empty?'none':'table';
+}
+
+function filterAndRender(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const nat=document.getElementById('filter-nat').value;
+  const cie=document.getElementById('filter-cie').value;
+  const dest=document.getElementById('filter-destin').value;
+
+  let rows=DATA.filter(d=>{
+    if(q){
+      const txt=[d.Nom,d.date,d.grade,d.Cie,d.Mort,d.Dlieu,d.Plieu,d.Prisonnier,d.nationalite].filter(Boolean).join(' ').toLowerCase();
+      if(!txt.includes(q)) return false;
+    }
+    if(nat && d.nationalite!==nat) return false;
+    if(cie && d.Cie!==cie) return false;
+    if(dest && destCat(d)!==dest) return false;
     return true;
   });
 
-  // Sort
-  rows.sort((a, b) => {
-    let va = a[sortCol] ?? '', vb = b[sortCol] ?? '';
-    if (sortCol === 'num') { va = +va; vb = +vb; }
-    else { va = String(va).toLowerCase(); vb = String(vb).toLowerCase(); }
-    return va < vb ? -sortDir : va > vb ? sortDir : 0;
+  rows.sort((a,b)=>{
+    let va=a[sortCol]??'', vb=b[sortCol]??'';
+    if(sortCol==='num'){va=+va||0;vb=+vb||0;}
+    else{va=String(va).toLowerCase();vb=String(vb).toLowerCase();}
+    return va<vb?-sortDir:va>vb?sortDir:0;
   });
 
   render(rows);
 }
 
-// ── Sort headers ──
-document.querySelectorAll('th[data-col]').forEach(th => {
-  th.addEventListener('click', () => {
-    const col = th.dataset.col;
-    if (sortCol === col) sortDir *= -1;
-    else { sortCol = col; sortDir = 1; }
-    document.querySelectorAll('th').forEach(t => {
-      t.classList.remove('sorted');
-      t.querySelector('.sort-icon').textContent = '↕';
-    });
+document.querySelectorAll('th[data-col]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const col=th.dataset.col;
+    if(sortCol===col) sortDir*=-1; else{sortCol=col;sortDir=1;}
+    document.querySelectorAll('th').forEach(t=>{t.classList.remove('sorted');t.querySelector('.si').textContent='↕'});
     th.classList.add('sorted');
-    th.querySelector('.sort-icon').textContent = sortDir === 1 ? '↑' : '↓';
+    th.querySelector('.si').textContent=sortDir===1?'↑':'↓';
     filterAndRender();
   });
 });
 
-// ── Event listeners ──
-['search','filter-nationalite','filter-cie','filter-destin'].forEach(id => {
-  document.getElementById(id).addEventListener('input', filterAndRender);
-  document.getElementById(id).addEventListener('change', filterAndRender);
+['search','filter-nat','filter-cie','filter-destin'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',filterAndRender);
+  document.getElementById(id).addEventListener('change',filterAndRender);
 });
 
-document.getElementById('reset').addEventListener('click', () => {
-  document.getElementById('search').value = '';
-  document.getElementById('filter-nationalite').value = '';
-  document.getElementById('filter-cie').value = '';
-  document.getElementById('filter-destin').value = '';
+document.getElementById('reset').addEventListener('click',()=>{
+  ['search','filter-nat','filter-cie','filter-destin'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el.tagName==='INPUT') el.value=''; else el.value='';
+  });
   filterAndRender();
 });
 
-// ── Init ──
+// Init
+document.getElementById('loading').style.display='none';
+document.getElementById('main-table').style.display='table';
 buildFilters();
 filterAndRender();
 </script>
