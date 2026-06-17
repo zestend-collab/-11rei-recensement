@@ -13,12 +13,8 @@
   }
   body{background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;font-weight:300;min-height:100vh}
 
-  header{background:var(--ink);color:var(--parchment);padding:2.5rem 2rem 2rem;border-bottom:3px solid var(--red)}
-  .header-inner{max-width:1300px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-  .regiment{font-family:'EB Garamond',serif;font-size:clamp(1.4rem,3vw,2.1rem);font-weight:600;letter-spacing:.02em;line-height:1.15}
-  .subtitle{font-size:.75rem;color:var(--aged);letter-spacing:.12em;text-transform:uppercase;margin-top:.35rem}
-  .counter-badge{background:var(--red);color:#fff;font-family:'EB Garamond',serif;font-size:1.05rem;padding:.4rem 1rem;letter-spacing:.04em;white-space:nowrap}
-  #visible-count{font-weight:600;font-size:1.2rem}
+  .counter-badge{background:var(--red);color:#fff;font-family:'EB Garamond',serif;font-size:.85rem;padding:.35rem .8rem;letter-spacing:.04em;white-space:nowrap;border-radius:2px;align-self:center}
+  #visible-count{font-weight:600}
 
   .controls{background:var(--sand);border-bottom:1px solid var(--aged);padding:1.1rem 2rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.08)}
   .controls-inner{max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
@@ -92,16 +88,6 @@
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div>
-      <div class="regiment">11ᵉ Régiment Étranger d'Infanterie</div>
-      <div class="subtitle">Campagne de France · Novembre 1939 — Juin 1940 · Recensement biographique</div>
-    </div>
-    <div class="counter-badge"><span id="visible-count">—</span> légionnaires affichés</div>
-  </div>
-</header>
-
 <div class="controls">
   <div class="controls-inner">
     <div class="search-wrap">
@@ -119,6 +105,7 @@
       <option value="inconnu">Non renseigné</option>
     </select>
     <button class="btn-reset" id="reset">✕ Réinitialiser</button>
+    <div class="counter-badge"><span id="visible-count">—</span> résultats</div>
   </div>
 </div>
 
