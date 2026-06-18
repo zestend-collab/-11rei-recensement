@@ -114,7 +114,7 @@
   <div class="controls-inner">
     <div class="search-wrap">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" id="search" placeholder="Rechercher un nom, lieu, stalag…" autocomplete="off">
+      <input type="search" id="search" placeholder="Rechercher un nom, un lieu…" autocomplete="off">
     </div>
     <select id="filter-lieu"><option value="">Tous pays de naissance</option></select>
     <select id="filter-cie"><option value="">Toutes compagnies</option></select>
@@ -191,29 +191,21 @@ function destCat(d){
 // Build badges for destin column
 function buildDestin(d){
   let h='';
-  if(d.Mort){
-    h+=`<span class="badge b-mort">${d.Mort}</span>`;
-    if(d.Dlieu) h+=`<div class="dlieu">${d.Dlieu}</div>`;
-  }
-  if(d.MortApres) h+=`<span class="badge b-mort">${d.MortApres}</span>`;
-  if(d.Rapatrie) h+=`<span class="badge b-rapatrie">Rapatrié ${d.Rapatrie!=='o'?d.Rapatrie:''}</span>`;
-  if(d.Evasion)  h+=`<span class="badge b-evade">Évadé ${d.Evasion!=='o'?d.Evasion:''}</span>`;
-  if(d.MortCaptivite) h+=`<span class="badge b-mortcap">Mort en captivité</span><div class="detail">${d.MortCaptivite}</div>`;
-  if(d.Deporte)  h+=`<span class="badge b-deporte">Déporté</span><div class="detail">${d.Deporte}</div>`;
-  if(d.MortDeportation) h+=`<div class="detail" style="color:#922b21">✝ ${d.MortDeportation}</div>`;
-  if(d.Resistant) h+=`<span class="badge b-resistant">Résistant</span>`;
-  if(d.ResistantDeporte) h+=`<span class="badge b-deporte">Déporté</span><div class="detail">${d.ResistantDeporte}</div>`;
-  if(d.ResistantMortDeportation) h+=`<div class="detail" style="color:#922b21">✝ ${d.ResistantMortDeportation}</div>`;
-  if(d.AFN) h+=`<span class="badge b-afn">AFN</span><div class="detail">${d.AFN}</div>`;
+  if(d.Mort)             h+=`<span class="badge b-mort">${d.Mort}</span>`;
+  if(d.MortApres)        h+=`<span class="badge b-mort">${d.MortApres}</span>`;
+  if(d.Rapatrie)         h+=`<span class="badge b-rapatrie">Rapatrié</span>`;
+  if(d.Evasion)          h+=`<span class="badge b-evade">Évadé</span>`;
+  if(d.MortCaptivite)    h+=`<span class="badge b-mortcap">Mort en captivité</span>`;
+  if(d.Deporte)          h+=`<span class="badge b-deporte">Déporté</span>`;
+  if(d.MortDeportation)  h+=`<span class="badge b-mortcap">Mort en déportation</span>`;
+  if(d.Resistant)        h+=`<span class="badge b-resistant">Résistant</span>`;
+  if(d.ResistantDeporte) h+=`<span class="badge b-deporte">Déporté</span>`;
+  if(d.ResistantMortDeportation) h+=`<span class="badge b-mortcap">Mort en déportation</span>`;
+  if(d.AFN)              h+=`<span class="badge b-afn">Rejoint l'AFN</span>`;
   return h||'<span style="color:#bbb">—</span>';
 }
 
-function getPays(d){
-  // Extrait le pays depuis la colonne date : "(06/02/1911 - Detva - Tchécoslovaquie)"
-  if(!d.date) return null;
-  const parts=d.date.replace(/[()]/g,'').split(' - ');
-  return parts.length>1 ? parts[parts.length-1].trim() : null;
-}
+function getPays(d){ return d.pays||null; }
 
 function buildFilters(){
   // Pays de naissance — extrait la partie pays du champ lieu "Ville - Pays"
