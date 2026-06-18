@@ -208,16 +208,38 @@ function buildDestin(d){
   return h||'<span style="color:#bbb">—</span>';
 }
 
-function buildFilters(){
-  // Pays de naissance from 'lieu' column
-  const lieux=[...new Set(DATA.map(d=>d.lieu).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
-  const ls=document.getElementById('filter-lieu');
-  lieux.forEach(l=>{const o=document.createElement('option');o.value=l;o.textContent=l;ls.appendChild(o)});
+function getPays(d){
+  // Extrait le pays depuis la colonne date : "(06/02/1911 - Detva - Tchécoslovaquie)"
+  if(!d.date) return null;
+  const parts=d.date.replace(/[()]/g,'').split(' - ');
+  return parts.length>1 ? parts[parts.length-1].trim() : null;
+}
 
-  // Compagnies from Cie1 + Cie2
+function buildFilters(){
+  // Pays de naissance — extrait la partie pays du champ lieu "Ville - Pays"
+  const pays=[...new Set(DATA.map(d=>getPays(d)).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'));
+  const ls=document.getElementById('filter-lieu');
+  pays.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;ls.appendChild(o)});
+
+  // Compagnies — tri logique : numérotées, CA, spéciales, bataillons
+  const cieOrder = [
+    '1ère compagnie','2è compagnie','3è compagnie','4è compagnie',
+    '5è compagnie','6è compagnie','7è compagnie','8è compagnie',
+    '9è compagnie','10è compagnie','11è compagnie','12è compagnie',
+    'CA1','CA2','CA3',
+    'Compagnie de commandement','Compagnie Hors Rang',
+    "Compagnie Régimentaire d'Engins",'État-Major','Groupe franc','Dépôt',
+    '1er bataillon','2è bataillon','3è bataillon'
+  ];
   const cieSet=new Set();
   DATA.forEach(d=>{if(d.Cie1)cieSet.add(d.Cie1);if(d.Cie2)cieSet.add(d.Cie2)});
-  const cies=[...cieSet].sort((a,b)=>a.localeCompare(b,'fr'));
+  const cies=[...cieSet].sort((a,b)=>{
+    const ia=cieOrder.indexOf(a), ib=cieOrder.indexOf(b);
+    if(ia>=0&&ib>=0) return ia-ib;
+    if(ia>=0) return -1;
+    if(ib>=0) return 1;
+    return a.localeCompare(b,'fr');
+  });
   const cs=document.getElementById('filter-cie');
   cies.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cs.appendChild(o)});
 }
@@ -276,7 +298,7 @@ function filterAndRender(){
       ].filter(Boolean).join(' ').toLowerCase();
       if(!txt.includes(q)) return false;
     }
-    if(lieu && d.lieu!==lieu) return false;
+    if(lieu && getPays(d)!==lieu) return false;
     if(cie && d.Cie1!==cie && d.Cie2!==cie) return false;
     if(dest && destCat(d)!==dest) return false;
     return true;
