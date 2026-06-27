@@ -31,7 +31,8 @@
   select:focus{border-color:var(--orange)}
   .btn-reset{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.55rem .9rem;cursor:pointer;border-radius:3px;transition:all .15s;white-space:nowrap}
   .btn-reset:hover{background:var(--orange);color:var(--white);border-color:var(--orange)}
-  .counter-badge{background:var(--orange);color:var(--white);font-family:'EB Garamond',serif;font-size:.9rem;padding:.35rem .9rem;white-space:nowrap;border-radius:3px;align-self:center;font-weight:600}
+  .counter-badge{background:#c0392b;color:var(--white);font-family:'EB Garamond',serif;font-size:.9rem;padding:.35rem .9rem;white-space:nowrap;border-radius:3px;align-self:center;font-weight:600}
+  .counter-badge #visible-count{font-weight:700}
 
   /* LEGEND */
   .legend{max-width:1300px;margin:.5rem auto 0;padding:0 2rem;display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.73rem;color:var(--muted)}
@@ -39,7 +40,6 @@
   .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
   .dot-mort{background:#c0392b}
   .dot-prison{background:#7f8c8d}
-  .dot-rapatrie{background:#2980b9}
   .dot-evade{background:#27ae60}
   .dot-mortcap{background:#8e44ad}
   .dot-deporte{background:#2c3e50}
@@ -59,8 +59,7 @@
   tbody tr{border-bottom:1px solid #e0e0e0;transition:background .1s}
   tbody tr:hover{background:#f0f0f0}
   tbody tr.row-mort      {border-left:3px solid #c0392b}
-  tbody tr.row-prison    {border-left:3px solid #7f8c8d}
-  tbody tr.row-rapatrie  {border-left:3px solid #2980b9}
+  tbody tr.row-prisonnier{border-left:3px solid #7f8c8d}
   tbody tr.row-evade     {border-left:3px solid #27ae60}
   tbody tr.row-mortcap   {border-left:3px solid #8e44ad}
   tbody tr.row-deporte   {border-left:3px solid #2c3e50}
@@ -85,7 +84,7 @@
   .badge{display:inline-block;font-size:.67rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;padding:.15rem .45rem;border-radius:2px;white-space:nowrap;margin:.1rem .1rem .1rem 0}
   .b-mort     {background:#fde8e8;color:#922b21}
   .b-prison   {background:#f0f0f0;color:#555}
-  .b-rapatrie {background:#d6eaf8;color:#1a5276}
+  .b-prisonnier{background:#eaecee;color:#566573}
   .b-evade    {background:#d5f5e3;color:#1e8449}
   .b-mortcap  {background:#e8daef;color:#6c3483}
   .b-deporte  {background:#d5d8dc;color:#1c2833}
@@ -121,8 +120,7 @@
     <select id="filter-destin">
       <option value="">Tous destins</option>
       <option value="mort">Mort pour la France</option>
-      <option value="prison">Prisonnier de guerre</option>
-      <option value="rapatrie">Rapatrié</option>
+      <option value="prisonnier">Prisonnier de guerre</option>
       <option value="evade">Évadé</option>
       <option value="mortcap">Mort en captivité</option>
       <option value="deporte">Déporté</option>
@@ -138,7 +136,6 @@
 <div class="legend" style="max-width:1300px;margin:.5rem auto 0;padding:.3rem 2rem .5rem">
   <span class="legend-item"><span class="dot dot-mort"></span>MPF</span>
   <span class="legend-item"><span class="dot dot-prison"></span>Prisonnier</span>
-  <span class="legend-item"><span class="dot dot-rapatrie"></span>Rapatrié</span>
   <span class="legend-item"><span class="dot dot-evade"></span>Évadé</span>
   <span class="legend-item"><span class="dot dot-mortcap"></span>Mort captivité</span>
   <span class="legend-item"><span class="dot dot-deporte"></span>Déporté</span>
@@ -174,6 +171,20 @@
 <script>
 let sortCol='num', sortDir=1;
 
+// Tronque le texte de décès : ne garde que "Mort le <date>" (avec heure éventuelle)
+// ou "Porté disparu [complément court]", sans le récit/commentaire qui suit.
+function truncMort(txt){
+  if(!txt) return txt;
+  // Cas "Porté disparu ..." : on garde jusqu'au premier point, sans le récit détaillé après
+  let m=txt.match(/^Porté disparu(?:\s+en\s+\S+\s+\d{4})?/i);
+  if(m) return m[0];
+  // Cas "Mort le <date>" (+ heure optionnelle "à XXhXX"), on coupe avant toute parenthèse/commentaire
+  m=txt.match(/^(?:[Mm]ort le\s+(?:"sans date"|\d{2}\/\d{2}\/\d{4})(?:\s+à\s*\d{1,2}h\d{0,2})?)/);
+  if(m) return m[0];
+  return txt;
+}
+
+
 // Priority order for destin category
 function destCat(d){
   if(d.Mort) return 'mort';
@@ -182,18 +193,17 @@ function destCat(d){
   if(d.Deporte||d.ResistantDeporte) return 'deporte';
   if(d.Resistant) return 'resistant';
   if(d.Evasion) return 'evade';
-  if(d.Rapatrie) return 'rapatrie';
   if(d.AFN) return 'afn';
-  // Prisonnier = has Plieu (lieu de captivité info in data)
+  if(d.Prisonnier) return 'prisonnier';
   return 'inconnu';
 }
 
 // Build badges for destin column
 function buildDestin(d){
   let h='';
-  if(d.Mort)             h+=`<span class="badge b-mort">${d.Mort}</span>`;
-  if(d.MortApres)        h+=`<span class="badge b-mort">${d.MortApres}</span>`;
-  if(d.Rapatrie)         h+=`<span class="badge b-rapatrie">Rapatrié</span>`;
+  if(d.Mort)             h+=`<span class="badge b-mort">${truncMort(d.Mort)}</span>`;
+  if(d.MortApres)        h+=`<span class="badge b-mort">${truncMort(d.MortApres)}</span>`;
+  if(d.Prisonnier)       h+=`<span class="badge b-prisonnier">Prisonnier</span>`;
   if(d.Evasion)          h+=`<span class="badge b-evade">Évadé</span>`;
   if(d.MortCaptivite)    h+=`<span class="badge b-mortcap">Mort en captivité</span>`;
   if(d.Deporte)          h+=`<span class="badge b-deporte">Déporté</span>`;
@@ -250,10 +260,16 @@ function render(rows){
     const fl=d.Nom.replace(/^\?/,'').charAt(0).toLowerCase();
     const ap={'u':'uvw','v':'uvw','w':'uvw','x':'xyz','y':'xyz','z':'xyz'}[fl]||fl;
     const aURL=`https://www.11regimentetranger.com/recensement-11e-rei/${ap}`;
+    const isBlogFiche = d.URL && d.URL.includes('/blog/');
     let nomHTML=d.URL
-      ?`<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
+      ?(isBlogFiche
+        ?`<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
+        :`<a class="alpha" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`)
       :`<a class="alpha" href="${aURL}" target="_blank" rel="noopener">${d.Nom}</a>`;
-    if(d.photo) nomHTML+=` <a class="photo" href="https://www.11regimentetranger.com/portraits" target="_blank" rel="noopener" title="Portrait disponible">📷</a>`;
+    if(d.photo) {
+      const photoHref = d.photo_link || "https://www.11regimentetranger.com/portraits";
+      nomHTML+=` <a class="photo" href="${photoHref}" target="_blank" rel="noopener" title="Portrait disponible">📷</a>`;
+    }
 
     // Compagnie
     let cieHTML=d.Cie1||'—';
@@ -285,7 +301,7 @@ function filterAndRender(){
   let rows=DATA.filter(d=>{
     if(q){
       const txt=[d.Nom,d.date,d.lieu,d.grade,d.Cie1,d.Cie2,d.Mort,d.Dlieu,
-        d.MortCaptivite,d.Rapatrie,d.Evasion,d.Deporte,d.MortDeportation,
+        d.MortCaptivite,d.Evasion,d.Deporte,d.MortDeportation,
         d.Resistant,d.ResistantDeporte,d.AFN,d.nationalite
       ].filter(Boolean).join(' ').toLowerCase();
       if(!txt.includes(q)) return false;
