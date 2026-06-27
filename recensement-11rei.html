@@ -167,7 +167,7 @@
   <a href="https://www.11regimentetranger.com">11regimentetranger.com</a>
 </footer>
 
-<script src="data.js"></script>
+<script src="data.js?v=20260627"></script>
 <script>
 let sortCol='num', sortDir=1;
 
@@ -308,7 +308,16 @@ function filterAndRender(){
     }
     if(lieu && getPays(d)!==lieu) return false;
     if(cie && d.Cie1!==cie && d.Cie2!==cie) return false;
-    if(dest && destCat(d)!==dest) return false;
+    if(dest){
+      if(dest==='mort'        && !d.Mort) return false;
+      if(dest==='prisonnier'  && !d.Prisonnier) return false;
+      if(dest==='evade'       && !d.Evasion) return false;
+      if(dest==='mortcap'     && !(d.MortCaptivite||d.MortDeportation||d.ResistantMortDeportation)) return false;
+      if(dest==='deporte'     && !(d.Deporte||d.ResistantDeporte)) return false;
+      if(dest==='resistant'   && !d.Resistant) return false;
+      if(dest==='afn'         && !d.AFN) return false;
+      if(dest==='inconnu'     && destCat(d)!=='inconnu') return false;
+    }
     return true;
   });
 
