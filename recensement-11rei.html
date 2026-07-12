@@ -24,7 +24,13 @@
   .controls-inner{max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
   .search-wrap{position:relative;flex:1 1 220px}
   .search-wrap svg{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
-  input[type=search]{width:100%;padding:.55rem .75rem .55rem 2.2rem;border:1px solid var(--border);background:var(--white);color:var(--ink);font-family:'Inter',sans-serif;font-size:.85rem;outline:none;border-radius:3px;transition:border-color .15s}
+  input[type=search]{width:100%;padding:.55rem 2.1rem .55rem 2.2rem;border:1px solid var(--border);background:var(--white);color:var(--ink);font-family:'Inter',sans-serif;font-size:.85rem;outline:none;border-radius:3px;transition:border-color .15s}
+  .help-btn{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);width:1.3rem;height:1.3rem;border-radius:50%;border:1px solid var(--border);background:var(--row);color:var(--muted);font-size:.7rem;font-family:'Inter',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+  .help-btn:hover{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+  .help-popover{display:none;position:absolute;top:calc(100% + .4rem);left:0;right:0;background:var(--white);border:1px solid var(--border);border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.15);padding:.75rem .9rem;font-size:.75rem;line-height:1.5;color:var(--ink);z-index:110}
+  .help-popover.open{display:block}
+  .help-popover code{background:var(--row);padding:.05rem .3rem;border-radius:2px;font-weight:600}
+  .help-popover em{font-style:italic;color:var(--muted)}
   input[type=search]:focus{border-color:var(--orange)}
   input[type=search]::placeholder{color:var(--muted)}
   select{padding:.55rem 2rem .55rem .7rem;border:1px solid var(--border);background:var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E") no-repeat right .6rem center;-webkit-appearance:none;appearance:none;color:var(--ink);font-family:'Inter',sans-serif;font-size:.82rem;cursor:pointer;outline:none;border-radius:3px;flex-shrink:0;transition:border-color .15s}
@@ -113,7 +119,14 @@
   <div class="controls-inner">
     <div class="search-wrap">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="search" id="search" placeholder="Rechercher un nom, un lieu…" autocomplete="off">
+      <input type="search" id="search" placeholder="Rechercher un nom… (essayez Zombro* ou Zombr?wski)" autocomplete="off">
+      <button type="button" class="help-btn" id="help-btn" title="Aide sur la recherche" aria-label="Aide sur la recherche">?</button>
+      <div class="help-popover" id="help-popover">
+        La recherche porte sur le nom, les variantes orthographiques, le matricule, la date, la ville de naissance, la compagnie et le destin.<br><br>
+        <strong>Caractères joker</strong> (sur le nom et la ville de naissance) :<br>
+        <code>*</code> remplace une suite de caractères quelconque — ex. <em>Zombro*</em><br>
+        <code>?</code> remplace un seul caractère — ex. <em>Zombr?wski</em>
+      </div>
     </div>
     <select id="filter-lieu"><option value="">Tous pays de naissance</option></select>
     <select id="filter-cie"><option value="">Toutes compagnies</option></select>
@@ -167,7 +180,7 @@
   <a href="https://www.11regimentetranger.com">11regimentetranger.com</a>
 </footer>
 
-<script src="data.js?v=20260627"></script>
+<script src="data.js?v=20260712"></script>
 <script>
 let sortCol='num', sortDir=1;
 
@@ -257,23 +270,18 @@ function render(rows){
     tr.className='row-'+cat;
 
     // Nom
-    const fl=d.Nom.replace(/^\?/,'').charAt(0).toLowerCase();
-    const ap={'u':'uvw','v':'uvw','w':'uvw','x':'xyz','y':'xyz','z':'xyz'}[fl]||fl;
-    const aURL=`https://www.11regimentetranger.com/recensement-11e-rei/${ap}`;
-    const isBlogFiche = d.URL && d.URL.includes('/blog/');
-    let nomHTML=d.URL
-      ?(isBlogFiche
-        ?`<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
-        :`<a class="alpha" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`)
-      :`<a class="alpha" href="${aURL}" target="_blank" rel="noopener">${d.Nom}</a>`;
+    const ap = d.LettreDossier || (d.Nom.replace(/^\?/,'').charAt(0).toLowerCase());
+    const aURL = `https://www.11regimentetranger.com/recensement-11e-rei/${ap}${d.Identifiant ? '#'+d.Identifiant : ''}`;
+    let nomHTML = d.URL
+      ? `<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
+      : `<a class="alpha" href="${aURL}" target="_blank" rel="noopener">${d.Nom}</a>`;
     if(d.photo) {
       const photoHref = d.photo_link || "https://www.11regimentetranger.com/portraits";
       nomHTML+=` <a class="photo" href="${photoHref}" target="_blank" rel="noopener" title="Portrait disponible">📷</a>`;
     }
 
-    // Compagnie
-    let cieHTML=d.Cie1||'—';
-    if(d.Cie2) cieHTML+=`<div class="detail">${d.Cie2}</div>`;
+    // Compagnie (fusionnee "puis", coherent avec les fiches par lettre)
+    let cieHTML = [d.Cie1, d.Cie2].filter(Boolean).join(' puis ') || '—';
 
     tr.innerHTML=`
       <td class="num">${d.num||''}</td>
@@ -292,19 +300,34 @@ function render(rows){
   document.getElementById('main-table').style.display=empty?'none':'table';
 }
 
+function wildcardToRegex(q){
+  // echappe tous les caracteres speciaux de regex sauf * et ?
+  const escaped=q.replace(/[.+^${}()|[\]\\]/g,'\\$&');
+  const pattern=escaped.replace(/\*/g,'.*').replace(/\?/g,'.');
+  return new RegExp(pattern,'i');
+}
+
 function filterAndRender(){
-  const q=document.getElementById('search').value.toLowerCase();
+  const qRaw=document.getElementById('search').value;
+  const q=qRaw.toLowerCase();
+  const isWildcard = qRaw.includes('*') || qRaw.includes('?');
+  const wcRegex = isWildcard ? wildcardToRegex(qRaw) : null;
   const lieu=document.getElementById('filter-lieu').value;
   const cie=document.getElementById('filter-cie').value;
   const dest=document.getElementById('filter-destin').value;
 
   let rows=DATA.filter(d=>{
-    if(q){
-      const txt=[d.Nom,d.date,d.lieu,d.grade,d.Cie1,d.Cie2,d.Mort,d.Dlieu,
-        d.MortCaptivite,d.Evasion,d.Deporte,d.MortDeportation,
-        d.Resistant,d.ResistantDeporte,d.AFN,d.nationalite
-      ].filter(Boolean).join(' ').toLowerCase();
-      if(!txt.includes(q)) return false;
+    if(qRaw){
+      if(isWildcard){
+        const nomEtVariantes=[d.Nom,d.Variantes,d.lieu].filter(Boolean).join(' ');
+        if(!wcRegex.test(nomEtVariantes)) return false;
+      } else {
+        const txt=[d.Nom,d.Variantes,d.Matricule,d.date,d.lieu,d.grade,d.Cie1,d.Cie2,d.Mort,d.Dlieu,
+          d.MortCaptivite,d.Evasion,d.Deporte,d.MortDeportation,
+          d.Resistant,d.ResistantDeporte,d.AFN,d.nationalite
+        ].filter(Boolean).join(' ').toLowerCase();
+        if(!txt.includes(q)) return false;
+      }
     }
     if(lieu && getPays(d)!==lieu) return false;
     if(cie && d.Cie1!==cie && d.Cie2!==cie) return false;
@@ -345,6 +368,17 @@ document.querySelectorAll('th[data-col]').forEach(th=>{
 ['search','filter-lieu','filter-cie','filter-destin'].forEach(id=>{
   document.getElementById(id).addEventListener('input',filterAndRender);
   document.getElementById(id).addEventListener('change',filterAndRender);
+});
+
+document.getElementById('help-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.getElementById('help-popover').classList.toggle('open');
+});
+document.addEventListener('click', (e) => {
+  const pop = document.getElementById('help-popover');
+  if(pop.classList.contains('open') && !pop.contains(e.target) && e.target.id !== 'help-btn'){
+    pop.classList.remove('open');
+  }
 });
 
 document.getElementById('reset').addEventListener('click',()=>{
