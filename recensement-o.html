@@ -26,6 +26,8 @@
   header .sub{color:var(--muted);font-size:.78rem}
   header .letter-badge{background:var(--orange);color:var(--ink);font-family:'EB Garamond',serif;font-weight:600;font-size:1.3rem;width:2.2rem;height:2.2rem;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.4)}
   header .titlewrap{display:flex;align-items:center;gap:.75rem}
+  .back-to-site{font-family:'Inter',sans-serif;font-size:.75rem;color:var(--link);text-decoration:none;white-space:nowrap;flex-shrink:0}
+  .back-to-site:hover{text-decoration:underline}
 
   .letter-nav{background:var(--white);border-bottom:1px solid var(--border)}
   .letter-nav-inner{max-width:900px;margin:0 auto;padding:.5rem 2rem;display:flex;gap:.35rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
@@ -114,6 +116,7 @@
         <div class="sub">Fiches biographiques — lettre O</div>
       </div>
     </div>
+    <a class="back-to-site" href="https://www.11regimentetranger.com/recensement-11e-rei/o">← Retour au site</a>
   </div>
 </header>
 
@@ -242,6 +245,13 @@ function init(){
   });
 
   document.getElementById('top-btn').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+  const qParam = new URLSearchParams(location.search).get('q');
+  if(qParam){
+    const input = document.getElementById('search');
+    input.value = qParam;
+    filterList(qParam);
+  }
 
   if(location.hash){
     const id = location.hash.slice(1);

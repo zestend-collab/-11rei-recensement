@@ -180,7 +180,7 @@
   <a href="https://www.11regimentetranger.com">11regimentetranger.com</a>
 </footer>
 
-<script src="data.js?v=20260712"></script>
+<script src="data.js?v=20260713"></script>
 <script>
 let sortCol='num', sortDir=1;
 
@@ -271,7 +271,9 @@ function render(rows){
 
     // Nom
     const ap = d.LettreDossier || (d.Nom.replace(/^\?/,'').charAt(0).toLowerCase());
-    const aURL = `https://www.11regimentetranger.com/recensement-11e-rei/${ap}${d.Identifiant ? '#'+d.Identifiant : ''}`;
+    const GITHUB_BASE = 'https://zestend-collab.github.io/-11rei-recensement';
+    const qParam = encodeURIComponent(d.NomFamille || '');
+    const aURL = `${GITHUB_BASE}/recensement-${ap}.html?q=${qParam}${d.Identifiant ? '#'+d.Identifiant : ''}`;
     let nomHTML = d.URL
       ? `<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
       : `<a class="alpha" href="${aURL}" target="_blank" rel="noopener">${d.Nom}</a>`;
