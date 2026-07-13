@@ -17,8 +17,7 @@
     --border:#aaaaaa;
     --row:#f7f7f7;
   }
-  html{overflow-x:hidden}
-  body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;font-weight:300;min-height:100vh;overflow-x:hidden}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;font-weight:300;min-height:100vh}
 
   /* CONTROLS */
   .controls{background:var(--white);border-bottom:2px solid var(--orange);padding:1rem 2rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.1)}
@@ -109,9 +108,6 @@
 
   @media(max-width:600px){
     .controls{padding:.8rem 1rem}
-    .controls-inner{flex-direction:column;align-items:stretch}
-    .search-wrap{flex:none;width:100%}
-    select,.btn-reset,.counter-badge{width:100%;flex-shrink:1;box-sizing:border-box}
     .table-wrap{padding:0 .3rem}
     td.date,td.grade{display:none}
   }
@@ -184,7 +180,7 @@
   <a href="https://www.11regimentetranger.com">11regimentetranger.com</a>
 </footer>
 
-<script src="data.js?v=20260714"></script>
+<script src="data.js?v=20260713"></script>
 <script>
 let sortCol='num', sortDir=1;
 
@@ -275,9 +271,7 @@ function render(rows){
 
     // Nom
     const ap = d.LettreDossier || (d.Nom.replace(/^\?/,'').charAt(0).toLowerCase());
-    const GITHUB_BASE = 'https://zestend-collab.github.io/-11rei-recensement';
-    const qParam = encodeURIComponent(d.NomFamille || '');
-    const aURL = `${GITHUB_BASE}/recensement-${ap}.html?q=${qParam}${d.Identifiant ? '#'+d.Identifiant : ''}`;
+    const aURL = `https://www.11regimentetranger.com/recensement-11e-rei/${ap}${d.Identifiant ? '#'+d.Identifiant : ''}`;
     let nomHTML = d.URL
       ? `<a class="fiche" href="${d.URL}" target="_blank" rel="noopener">${d.Nom}</a>`
       : `<a class="alpha" href="${aURL}" target="_blank" rel="noopener">${d.Nom}</a>`;
