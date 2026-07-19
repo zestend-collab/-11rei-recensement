@@ -2,10 +2,115 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="Hqg2hRGJL1yOhgyKABs_AMIdNtwZSGjlbIiFnxOm75w" />
-<title>11e REI - Recensement</title>
+<title>Recensement — 11e Régiment Étranger d'Infanterie</title>
+<meta name="description" content="Recensement des légionnaires du 11e Régiment Étranger d'Infanterie, campagne de France 1939-1940. Recherche par nom, consultation par lettre, légionnaires espagnols déportés.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#cccccc;
+    --orange:#fab855;
+    --link:#ff9900;
+    --ink:#1a1a18;
+    --white:#ffffff;
+    --muted:#555555;
+    --border:#aaaaaa;
+    --row:#f7f7f7;
+  }
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:14px;font-weight:300;min-height:100vh}
+
+  header{background:var(--white);border-bottom:2px solid var(--orange);padding:1.1rem 2rem}
+  header .inner{max-width:900px;margin:0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  header h1{font-family:'EB Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink)}
+  header .sub{color:var(--muted);font-size:.8rem;margin-top:.2rem}
+  .back-to-site{font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .15s}
+  .back-to-site:hover{color:var(--link)}
+
+  main{max-width:900px;margin:2rem auto 4rem;padding:0 2rem}
+
+  .intro{font-family:'EB Garamond',serif;font-style:italic;color:var(--muted);font-size:1rem;line-height:1.6;margin-bottom:2rem;max-width:620px}
+
+  .block{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.4rem;margin-bottom:1.2rem}
+  .block h2{font-family:'EB Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--ink);border-bottom:1px solid var(--orange);padding-bottom:.4rem;margin-bottom:.8rem}
+  .block p{color:var(--muted);font-size:.85rem;margin-bottom:.8rem;line-height:1.5}
+
+  .big-link{display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:var(--ink);font-family:'Inter',sans-serif;font-weight:500;font-size:.9rem;text-decoration:none;padding:.6rem 1.1rem;border-radius:4px;transition:background .15s}
+  .big-link:hover{background:var(--link)}
+
+  .letters{display:flex;flex-wrap:wrap;gap:.5rem}
+  .letters a{display:flex;align-items:center;justify-content:center;min-width:2.4rem;height:2.4rem;padding:0 .5rem;background:var(--row);border:1px solid var(--border);border-radius:4px;font-family:'EB Garamond',serif;font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;transition:all .15s}
+  .letters a:hover{background:var(--orange);border-color:var(--orange)}
+
+  .secondary-link{display:inline-block;color:var(--link);font-size:.85rem;text-decoration:none;border-bottom:1px dotted var(--link)}
+  .secondary-link:hover{border-bottom-style:solid}
+
+  footer{text-align:center;padding:1.5rem;font-size:.72rem;color:var(--muted);border-top:1px solid var(--border);letter-spacing:.04em}
+  footer a{color:var(--link);text-decoration:none}
+</style>
 </head>
 <body>
-<p>Voir le <a href="recensement-a.html">recensement par lettre</a>.</p>
+
+<header>
+  <div class="inner">
+    <div>
+      <h1>Recensement — 11<sup>e</sup> REI</h1>
+      <div class="sub">Fiches biographiques des légionnaires, campagne de France 1939-1940</div>
+    </div>
+    <a class="back-to-site" href="https://www.11regimentetranger.com" title="Retour au site principal">← Retour au site</a>
+  </div>
+</header>
+
+<main>
+  <p class="intro">Ce recensement rassemble les fiches biographiques des légionnaires du 11<sup>e</sup> Régiment Étranger d'Infanterie ayant combattu en 1939-1940, établies à partir d'archives militaires françaises (SHD Vincennes, Aubagne, Caen), du Journal Officiel, et de sources généalogiques et familiales.</p>
+
+  <div class="block">
+    <h2>Recherche globale</h2>
+    <p>Recherchez un légionnaire par nom, matricule, lieu de naissance, compagnie ou destin, parmi l'ensemble du recensement.</p>
+    <a class="big-link" href="recensement-11rei.html">🔍 Rechercher un légionnaire</a>
+  </div>
+
+  <div class="block">
+    <h2>Consultation par lettre</h2>
+    <p>Parcourez les fiches biographiques classées par ordre alphabétique du nom de famille.</p>
+    <div class="letters">
+      <a href="recensement-a.html">A</a>
+      <a href="recensement-b.html">B</a>
+      <a href="recensement-c.html">C</a>
+      <a href="recensement-d.html">D</a>
+      <a href="recensement-e.html">E</a>
+      <a href="recensement-f.html">F</a>
+      <a href="recensement-g.html">G</a>
+      <a href="recensement-h.html">H</a>
+      <a href="recensement-i.html">I</a>
+      <a href="recensement-j.html">J</a>
+      <a href="recensement-k.html">K</a>
+      <a href="recensement-l.html">L</a>
+      <a href="recensement-m.html">M</a>
+      <a href="recensement-n.html">N</a>
+      <a href="recensement-o.html">O</a>
+      <a href="recensement-p.html">P</a>
+      <a href="recensement-q.html">Q</a>
+      <a href="recensement-r.html">R</a>
+      <a href="recensement-s.html">S</a>
+      <a href="recensement-t.html">T</a>
+      <a href="recensement-uvw.html">UVW</a>
+      <a href="recensement-xyz.html">XYZ</a>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Légionnaires espagnols déportés</h2>
+    <p>Fiches consacrées aux légionnaires républicains espagnols du 11<sup>e</sup> REI déportés à Mauthausen.</p>
+    <a class="secondary-link" href="recensement-espagnols.html">Consulter les fiches des légionnaires espagnols →</a>
+  </div>
+</main>
+
+<footer>
+  Sources : Mémoire des hommes · SHD Vincennes &amp; Aubagne · Journal officiel · Archives de captivité<br>
+  <a href="https://www.11regimentetranger.com">11regimentetranger.com</a>
+</footer>
+
 </body>
 </html>
