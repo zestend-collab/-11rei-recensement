@@ -37,6 +37,8 @@
   select:focus{border-color:var(--orange)}
   .btn-reset{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.55rem .9rem;cursor:pointer;border-radius:3px;transition:all .15s;white-space:nowrap}
   .btn-reset:hover{background:var(--orange);color:var(--white);border-color:var(--orange)}
+  .back-to-site{font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);text-decoration:none;white-space:nowrap;flex-shrink:0;padding:.55rem .3rem;transition:color .15s}
+  .back-to-site:hover{color:var(--link)}
   .counter-badge{background:#c0392b;color:var(--white);font-family:'EB Garamond',serif;font-size:.9rem;padding:.35rem .9rem;white-space:nowrap;border-radius:3px;align-self:center;font-weight:600}
   .counter-badge #visible-count{font-weight:700}
 
@@ -117,6 +119,7 @@
 
 <div class="controls">
   <div class="controls-inner">
+    <a href="https://www.11regimentetranger.com" class="back-to-site" title="Retour au site principal">← Retour au site</a>
     <div class="search-wrap">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
       <input type="search" id="search" placeholder="Rechercher un nom… (essayez Zombro* ou Zombr?wski)" autocomplete="off">
