@@ -20,7 +20,7 @@
   .rei-evdg *{box-sizing:border-box;}
   .rei-evdg .page-intro{font-family:'Inter',sans-serif;font-size:.85rem;line-height:1.65;color:var(--ink);
     max-width:820px;margin:0 auto 20px;padding:16px 20px;background:var(--card);border:1px solid var(--border);border-radius:4px;}
-  .rei-evdg .page-intro p{margin:0 0 10px;}
+  .rei-evdg .page-intro p{margin:0 0 10px;text-align:justify;text-justify:inter-word;}
   .rei-evdg .page-intro p:last-child{margin-bottom:0;}
   .rei-evdg .page-intro ul{margin:0 0 10px 1.3em;padding:0;}
   .rei-evdg .page-intro li{margin-bottom:4px;}
@@ -85,6 +85,9 @@
   }
   .rei-evdg .back-to-top.show{display:flex;}
   .rei-evdg .back-to-top:hover{background:var(--link);}
+  .rei-evdg .comment-wrap{text-align:center;margin:28px 0 6px;}
+  .rei-evdg .comment-btn{display:inline-block;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;color:var(--ink);background:var(--orange);text-decoration:none;padding:.55rem 1.1rem;border-radius:20px;transition:background .15s;}
+  .rei-evdg .comment-btn:hover{background:var(--link);color:#fff;}
   .rei-evdg .back-to-site{display:inline-block;font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);
     text-decoration:none;margin:0 auto 12px;padding:.3rem 0;transition:color .15s;max-width:820px;}
   .rei-evdg .back-to-site:hover{color:var(--link);}
@@ -113,7 +116,7 @@
 <div class="toolbar">
 <input type="text" id="rei-evdg-search" class="search-box" placeholder="Rechercher un nom...">
 <select id="rei-evdg-type-filter" class="filter-select"><option value="all">Tous (524)</option><option value="evdg">EVDG (226)</option><option value="reserviste">Réservistes (298)</option></select>
-<select id="rei-evdg-filter" class="filter-select"><option value="all">Toutes les affectations (524)</option><option value="11erei">11è REI (88)</option><option value="112eria">112è RIA (1)</option><option value="12erei">12e REI (38)</option><option value="13edble">13è DBLE (1)</option><option value="14esectioncoa">14è section COA (1)</option><option value="23ermve">23è RMVE (5)</option><option value="2erip">2è RIP (1)</option><option value="51ecompagnie">51è compagnie (1)</option><option value="affectespecial">Affecté spécial (1)</option><option value="armeepolonaise">Armée polonaise (1)</option><option value="declareinsoumisle1971940">déclaré insoumis le 19/7/1940 (1)</option><option value="demobilise">Démobilisé (1)</option><option value="depotannexedinfanterien183">Dépôt annexe d'infanterie n°183 (1)</option><option value="depotrmve">Dépôt RMVE (1)</option><option value="renvoyedanssesfoyers">Renvoyé dans ses foyers (2)</option><option value="resteaudepot">Resté au dépôt (4)</option><option value="reforme">réformé (1)</option><option value="reformedefinitifn2">réformé définitif n°2 (6)</option><option value="reformen2">réformé n°2 (1)</option><option value="reformetemporairen2">réformé temporaire n°2 (1)</option></select>
+<select id="rei-evdg-filter" class="filter-select"><option value="all">Toutes les affectations (524)</option><option value="11erei">11è REI (88)</option><option value="112eria">112è RIA (1)</option><option value="12erei">12e REI (38)</option><option value="13edble">13è DBLE (1)</option><option value="14esectioncoa">14è section COA (1)</option><option value="23ermve">23è RMVE (5)</option><option value="2erip">2è RIP (1)</option><option value="51ecompagnie">51è compagnie (1)</option><option value="affectespecial">Affecté spécial (1)</option><option value="armeepolonaise">Armée polonaise (1)</option><option value="declareinsoumis">Déclaré insoumis (1)</option><option value="demobilise">Démobilisé (1)</option><option value="depotannexedinfanterien183">Dépôt annexe d'infanterie n°183 (1)</option><option value="depotrmve">Dépôt RMVE (1)</option><option value="renvoyedanssesfoyers">Renvoyé dans ses foyers (2)</option><option value="resteaudepot">Resté au dépôt (4)</option><option value="reforme">Réformé (1)</option><option value="reformedefinitifn2">Réformé définitif n°2 (6)</option><option value="reformen2">Réformé n°2 (1)</option><option value="reformetemporairen2">Réformé temporaire n°2 (1)</option></select>
 </div>
 <div class="count" id="rei-evdg-count">524 fiches sur 524</div>
 <div class="grid">
@@ -279,7 +282,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : Compagnie d'accompagnement du 1er bataillon</p><p><b>Formation</b> : 38è Cie, noyau du 1er groupement d'instruction</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Décès</b> : Le 05/08/1995 à Dammarie-les-Lys</p><p><b>Naturalisation</b> : naturalisé décret du 25/03/1961. JO 02/04/1961 naturalisé ANKOTOWICZ (Pierre), Lowczyce (Pologne), 16-02-11, NAT, 858x55-77</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : Compagnie d'accompagnement du 1er bataillon</p><p><b>Formation</b> : 38è Cie, noyau du 1er groupement d'instruction</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Décès</b> : Le 05/08/1995 à Dammarie-les-Lys</p><p><b>Naturalisation</b> : JO 02/04/1961 naturalisé ANKOTOWICZ (Pierre), Lowczyce (Pologne), 16-02-11, NAT, 858x55-77</p></div>
     </div></div>
   </div>
 
@@ -403,10 +406,10 @@
     </div></div>
   </div>
 
-  <div class="card has-photo" id="bachta-bacht-francois" data-open="false" data-aff="" data-type="evdg" data-search="bachta/bacht françois bacht">
+  <div class="card has-photo" id="bachta-francois" data-open="false" data-aff="" data-type="evdg" data-search="bachta/bacht françois bacht">
     <div class="badges-corner"><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
-      <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/bachta-bacht-francois.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
+      <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/bachta-francois.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
         <div class="name">BACHTA/BACHT François </div>
         <div class="meta">(01/06/1916 - Jaroslav - Pologne) · <span class="type-label type-evdg">EVDG</span></div>
@@ -929,7 +932,7 @@
   </div>
 
   <div class="card has-photo" id="bonderew-ivan-jean" data-open="false" data-aff="reformedefinitifn2" data-type="reserviste" data-search="bonderew ivan &quot;jean&quot;">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">Réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/bonderew-ivan-jean.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -939,7 +942,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Philippe et Marie Gourhin</p><p><b>Mariage</b> : Le 10/01/1931 à Bourges avec Berthe Marie Carteau</p><p><b>Enfant(s)</b> : 1 fille Paulette (1937 à La Roche sur Yon)</p><p><b>Profession</b> : chauffeur de machine à vapeur</p><p><b>Naturalisation</b> : JO 25/12/1932 BONDEREW Yvan manœuvre ancien soldat à la Légion étrangère né le 24 juin 1904 à Chamlik (Russie) demeurant à La Rochelle (Charente Inférieure) + dénaturalisé BONDEREW (Ivan), chauffeur de machine, né le 24 juin 1904 à Chamlike (Russie), demeurant à la Rochelle (Charente-Maritime), 22, rue de l'Evescot, naturalisé Français par décret du 12 décembre 1932. publié au Journal officiel le 25 décembre 1932</p><p><b>Contexte</b> : Il habite en Russie jusqu'en 1920, puis à Constantinople de novembre au 04/12/1920 date à laquelle il s'engage dans la Légion étrangère. Il arrive en France le 07/12/1925</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : Réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Philippe et Marie Gourhin</p><p><b>Mariage</b> : Le 10/01/1931 à Bourges avec Berthe Marie Carteau</p><p><b>Enfant(s)</b> : 1 fille Paulette (1937 à La Roche sur Yon)</p><p><b>Profession</b> : chauffeur de machine à vapeur</p><p><b>Naturalisation</b> : JO 25/12/1932 BONDEREW Yvan manœuvre ancien soldat à la Légion étrangère né le 24 juin 1904 à Chamlik (Russie) demeurant à La Rochelle (Charente Inférieure) + dénaturalisé BONDEREW (Ivan), chauffeur de machine, né le 24 juin 1904 à Chamlike (Russie), demeurant à la Rochelle (Charente-Maritime), 22, rue de l'Evescot, naturalisé Français par décret du 12 décembre 1932. publié au Journal officiel le 25 décembre 1932</p><p><b>Contexte</b> : Il habite en Russie jusqu'en 1920, puis à Constantinople de novembre au 04/12/1920 date à laquelle il s'engage dans la Légion étrangère. Il arrive en France le 07/12/1925</p></div>
     </div></div>
   </div>
 
@@ -1184,7 +1187,7 @@
   </div>
 
   <div class="card has-photo" id="buczkowski-joseph" data-open="false" data-aff="reformedefinitifn2" data-type="reserviste" data-search="buczkowski joseph">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">Réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/buczkowski-joseph.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -1194,7 +1197,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Naturalisation</b> : JO 06/05/1934 naturalisé BUCZKOWSKI (Jozef), monteur, ancien soldat à la légion étrangère, né le 27 mars 1903 à Izerowo (Pologne), demeurant à Ussel (Corrèze)</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : Réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Naturalisation</b> : JO 06/05/1934 naturalisé BUCZKOWSKI (Jozef), monteur, ancien soldat à la légion étrangère, né le 27 mars 1903 à Izerowo (Pologne), demeurant à Ussel (Corrèze)</p></div>
     </div></div>
   </div>
 
@@ -1269,7 +1272,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : resté au dépôt</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Naturalisation</b> : JO 16/04/1933 BURIS (François), manœuvre, ancien soldat à la légion étrangère, né le 29 janvier 1903 à Krompaehach (Tchécoslovaquie), demeurant à Lyon (Rhône).</p></div><div class="section"><h4>Campagne 1939-40 et suites</h4><p><b>Mort en déportation</b> : Déporté au départ de Compiègne le 16/04/1943; Mauthausen mle 26177 prison de Linz</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : Resté au dépôt</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Naturalisation</b> : JO 16/04/1933 BURIS (François), manœuvre, ancien soldat à la légion étrangère, né le 29 janvier 1903 à Krompaehach (Tchécoslovaquie), demeurant à Lyon (Rhône).</p></div><div class="section"><h4>Campagne 1939-40 et suites</h4><p><b>Mort en déportation</b> : Déporté au départ de Compiègne le 16/04/1943; Mauthausen mle 26177 prison de Linz</p></div>
     </div></div>
   </div>
 
@@ -1304,7 +1307,7 @@
   </div>
 
   <div class="card has-photo" id="carabeau-marcel-louis-emmanuel" data-open="false" data-aff="reformedefinitifn2" data-type="reserviste" data-search="carabeau marcel louis emmanuel">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">Réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/carabeau-marcel-louis-emmanuel.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -1314,7 +1317,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Maurice Emmanuel et Henriette Eugenie Aisa Devaud</p><p><b>Mariage</b> : le 02/09/1935 à Saffré avec Eugenie Jeanne Marie Pentecouteau</p><p><b>Décès</b> : Le 18/04/1941</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : Réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Maurice Emmanuel et Henriette Eugenie Aisa Devaud</p><p><b>Mariage</b> : le 02/09/1935 à Saffré avec Eugenie Jeanne Marie Pentecouteau</p><p><b>Décès</b> : Le 18/04/1941</p></div>
     </div></div>
   </div>
 
@@ -1809,7 +1812,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : Compagnie d'accompagnement du 1er bataillon</p><p><b>Formation</b> : 38è Cie, noyau du 1er groupement d'instruction</p><p><b>Affectation définitive</b> : armée polonaise</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Précision d'identité</b> : beau frère de Michel Votchel du 11è REI</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : Compagnie d'accompagnement du 1er bataillon</p><p><b>Formation</b> : 38è Cie, noyau du 1er groupement d'instruction</p><p><b>Affectation définitive</b> : Armée polonaise</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Précision d'identité</b> : beau frère de Michel Votchel du 11è REI</p></div>
     </div></div>
   </div>
 
@@ -1843,12 +1846,12 @@
     </div></div>
   </div>
 
-  <div class="card has-photo" id="da-rocha-valdemar-de-jesus" data-open="false" data-aff="" data-type="evdg" data-search="da rocha valdemar de jésus">
+  <div class="card has-photo" id="da-rocha-de-jesus-valdemar" data-open="false" data-aff="" data-type="evdg" data-search="da rocha de jesus valdemar">
     <div class="badges-corner"><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
-      <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/da-rocha-valdemar-de-jesus.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
+      <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/da-rocha-de-jesus-valdemar.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
-        <div class="name">DA ROCHA Valdemar de Jésus </div>
+        <div class="name">DA ROCHA DE JESUS Valdemar </div>
         <div class="meta">(19/02/1915 - Vila Nova de Goya - Portugal) · <span class="type-label type-evdg">EVDG</span></div>
       </div>
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2279,7 +2282,7 @@
   </div>
 
   <div class="card has-photo" id="doudelle-leon-gabriel" data-open="false" data-aff="reformedefinitifn2" data-type="reserviste" data-search="doudelle léon gabriel">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">Réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/doudelle-leon-gabriel.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -2289,7 +2292,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : enfant naturel de Françoise Doudelle</p><p><b>Mariage</b> : Le 21/11/1936 à Paris 18 avec Emilie Michel (divorce en 1946)</p><p><b>Décès</b> : Le 09/06/1967 à Paris 10</p><p><b>Profession</b> : ouvrier spécialisé</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : Réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : enfant naturel de Françoise Doudelle</p><p><b>Mariage</b> : Le 21/11/1936 à Paris 18 avec Emilie Michel (divorce en 1946)</p><p><b>Décès</b> : Le 09/06/1967 à Paris 10</p><p><b>Profession</b> : ouvrier spécialisé</p></div>
     </div></div>
   </div>
 
@@ -2458,12 +2461,12 @@
     </div></div>
   </div>
 
-  <div class="card has-photo" id="farkas-gelta" data-open="false" data-aff="" data-type="reserviste" data-search="farkas gelta">
+  <div class="card has-photo" id="farkas-gelta" data-open="false" data-aff="" data-type="reserviste" data-search="farkas gelta &quot;louis&quot;">
     <div class="badges-corner"><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/farkas-gelta.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
-        <div class="name">FARKAS Gelta </div>
+        <div class="name">FARKAS Gelta &quot;Louis&quot; </div>
         <div class="meta">(22/03/1906 - Stimeg - Hongrie) · <span class="type-label type-reserviste">Réserviste</span></div>
       </div>
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2684,7 +2687,7 @@
   </div>
 
   <div class="card has-photo" id="foltier-aime" data-open="false" data-aff="reformetemporairen2" data-type="reserviste" data-search="foltier aimé">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformetemporairen2" title="Affectation définitive">réformé temporaire n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformetemporairen2" title="Affectation définitive">Réformé temporaire n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/foltier-aime.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -2694,7 +2697,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : réformé temporaire n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Décès</b> : le 12/05/1972 à Tours</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : Réformé temporaire n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Décès</b> : le 12/05/1972 à Tours</p></div>
     </div></div>
   </div>
 
@@ -2983,12 +2986,12 @@
     </div></div>
   </div>
 
-  <div class="card has-photo" id="gibas-frantizek-francois" data-open="false" data-aff="" data-type="evdg" data-search="gibas frantizek françois">
+  <div class="card has-photo" id="gibas-frantizek" data-open="false" data-aff="" data-type="evdg" data-search="gibas frantizek &quot;françois&quot;">
     <div class="badges-corner"><span class="stamp stamp-mort" title="Mort pour la France">MPF</span></div>
     <button class="card-head" onclick="toggleCard(this)">
-      <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/gibas-frantizek-francois.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
+      <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/gibas-frantizek.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
-        <div class="name">GIBAS Frantizek François </div>
+        <div class="name">GIBAS Frantizek &quot;François&quot; </div>
         <div class="meta">(27/07/1911 - Kruscham - Pologne) · <span class="type-label type-evdg">EVDG</span></div>
       </div>
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -3133,8 +3136,8 @@
     </div></div>
   </div>
 
-  <div class="card has-photo" id="gross-fritz" data-open="false" data-aff="declareinsoumisle1971940" data-type="reserviste" data-search="gross fritz">
-    <div class="badges-corner"><span class="stamp aff-chip aff-declareinsoumisle1971940" title="Affectation définitive">déclaré insoumis le 19/7/1940</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+  <div class="card has-photo" id="gross-fritz" data-open="false" data-aff="declareinsoumis" data-type="reserviste" data-search="gross fritz">
+    <div class="badges-corner"><span class="stamp aff-chip aff-declareinsoumis" title="Affectation définitive">Déclaré insoumis</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/gross-fritz.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -3144,7 +3147,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : déclaré insoumis le 19/7/1940</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Adolphe Robert et Elise Wilhelmine Noack</p><p><b>Naturalisation</b> : JO 15/12/1929 GROS (Fritz), soldat au 1er régiment étranger d'infanterie, né le 21 février 1901, Zorbig (Allemagne), demeurant au Kreider (Oran). + dénaturalisé le 26/08/1942</p><p><b>Précision d'identité</b> : prisonnier politique au camp de Buchenwald le 8/9/1939</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 6è Cie</p><p><b>Affectation définitive</b> : Déclaré insoumis</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Adolphe Robert et Elise Wilhelmine Noack</p><p><b>Naturalisation</b> : JO 15/12/1929 GROS (Fritz), soldat au 1er régiment étranger d'infanterie, né le 21 février 1901, Zorbig (Allemagne), demeurant au Kreider (Oran). + dénaturalisé le 26/08/1942</p><p><b>Précision d'identité</b> : prisonnier politique au camp de Buchenwald le 8/9/1939</p></div>
     </div></div>
   </div>
 
@@ -4379,7 +4382,7 @@
   </div>
 
   <div class="card has-photo" id="lanao-constantin" data-open="false" data-aff="reformedefinitifn2" data-type="reserviste" data-search="lanao constantin">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">Réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/lanao-constantin.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -4389,7 +4392,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : CA2</p><p><b>Affectation définitive</b> : réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Antonio et Maria Fumanal</p><p><b>Mariage</b> : avec Maria Bruned</p><p><b>Décès</b> : le 10/07/1980 à Gradignan</p><p><b>Profession</b> : terrassier</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : CA2</p><p><b>Affectation définitive</b> : Réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Antonio et Maria Fumanal</p><p><b>Mariage</b> : avec Maria Bruned</p><p><b>Décès</b> : le 10/07/1980 à Gradignan</p><p><b>Profession</b> : terrassier</p></div>
     </div></div>
   </div>
 
@@ -4439,7 +4442,7 @@
   </div>
 
   <div class="card has-photo" id="langas-jean" data-open="false" data-aff="reformedefinitifn2" data-type="reserviste" data-search="langas jean">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformedefinitifn2" title="Affectation définitive">Réformé définitif n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/langas-jean.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -4449,7 +4452,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Louise</p><p><b>Profession</b> : électricien</p><p><b>Naturalisation</b> : JO 01/01/1933 LANGAS (Jean) électricien ancien soldat à la légion étrangère né le 24 mars 1901 à Brasov (Roumanie) demeurant à Villeurbanne</p><p><b>Contexte</b> : En 1931, il est recensé rue Jean Claude Vivant à Villeurbanne</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : Réformé définitif n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Louise</p><p><b>Profession</b> : électricien</p><p><b>Naturalisation</b> : JO 01/01/1933 LANGAS (Jean) électricien ancien soldat à la légion étrangère né le 24 mars 1901 à Brasov (Roumanie) demeurant à Villeurbanne</p><p><b>Contexte</b> : En 1931, il est recensé rue Jean Claude Vivant à Villeurbanne</p></div>
     </div></div>
   </div>
 
@@ -5144,7 +5147,7 @@
   </div>
 
   <div class="card has-photo" id="matteoda-stephane" data-open="false" data-aff="reformen2" data-type="reserviste" data-search="matteoda stéphane">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reformen2" title="Affectation définitive">réformé n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reformen2" title="Affectation définitive">Réformé n°2</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/matteoda-stephane.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -5154,7 +5157,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : réformé n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Angèle</p><p><b>Naturalisation</b> : JO 14/10/1934 MATTEODA (Stefano), conducteur d'automobile, né le 3 avril 1890 à Acceglio (Italie), demeurant à Lyon (Rhône).</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : Réformé n°2</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Angèle</p><p><b>Naturalisation</b> : JO 14/10/1934 MATTEODA (Stefano), conducteur d'automobile, né le 3 avril 1890 à Acceglio (Italie), demeurant à Lyon (Rhône).</p></div>
     </div></div>
   </div>
 
@@ -5199,7 +5202,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : resté au dépôt</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : Resté au dépôt</p></div>
     </div></div>
   </div>
 
@@ -5559,7 +5562,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : dépôt annexe d'infanterie n°183 à Pau</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : enfant naturel de Marie Louise Nativité</p><p><b>Mariage</b> : le 27/10/1933 à Orthez avec Appolonie Eugénie Lores</p><p><b>Décès</b> : le 17/09/1948 à Tarbes</p><p><b>Profession</b> : maçon</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : Dépôt annexe d'infanterie n°183</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : enfant naturel de Marie Louise Nativité</p><p><b>Mariage</b> : le 27/10/1933 à Orthez avec Appolonie Eugénie Lores</p><p><b>Décès</b> : le 17/09/1948 à Tarbes</p><p><b>Profession</b> : maçon</p></div>
     </div></div>
   </div>
 
@@ -6054,7 +6057,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>EVDG</b> : Légion étrangère, 1re région militaire, Seine centrale, mle 2480 + DRMVE, 10e région militaire, Seine centrale</p><p><b>Affectation à Vancia/La Valbonne</b> : Compagnie d'accompagnement du 1er bataillon</p><p><b>Formation</b> : 38è Cie, noyau du 1er groupement d'instruction</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Joseph et Hendel Morgenstern</p><p><b>Mariage</b> : avec Kazia</p><p><b>Profession</b> : tailleur</p></div><div class="section"><h4>Campagne 1939-40 et suites</h4><p><b>Déportation</b> : déporté le 25/06/1942 par le convoi n°5</p><p><b>Mort en déportation</b> : mort le 18/02/1943 à Auschwitz</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>EVDG</b> : Légion étrangère, 1re région militaire, Seine centrale, mle 2480 + DRMVE, 10e région militaire, Seine centrale</p><p><b>Affectation à Vancia/La Valbonne</b> : Compagnie d'accompagnement du 1er bataillon</p><p><b>Formation</b> : 38è Cie, noyau du 1er groupement d'instruction</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Joseph et Hendel Morgenstern</p><p><b>Mariage</b> : avec Kazia</p><p><b>Profession</b> : tailleur</p></div><div class="section"><h4>Campagne 1939-40 et suites</h4><p><b>Déportation</b> : déporté le 25/06/1942 par le convoi n°4</p><p><b>Mort en déportation</b> : mort le 18/02/1943 à Auschwitz</p></div>
     </div></div>
   </div>
 
@@ -6419,7 +6422,7 @@
   </div>
 
   <div class="card has-photo" id="robial-martial-georges" data-open="false" data-aff="reforme" data-type="reserviste" data-search="robial martial georges">
-    <div class="badges-corner"><span class="stamp aff-chip aff-reforme" title="Affectation définitive">réformé</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
+    <div class="badges-corner"><span class="stamp aff-chip aff-reforme" title="Affectation définitive">Réformé</span><span class="stamp stamp-unknown" title="Statut non renseigné">N.R.</span></div>
     <button class="card-head" onclick="toggleCard(this)">
       <div class="portrait"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos/main/robial-martial-georges.jpg" alt="" loading="lazy" onerror="this.closest('.card').classList.remove('has-photo'); this.closest('.portrait').style.display='none';"></div>
       <div class="head-text">
@@ -6429,7 +6432,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : réformé</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Alphonse Marie et Céline Emile Madec</p><p><b>Profession</b> : forgeron</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : Réformé</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Alphonse Marie et Céline Emile Madec</p><p><b>Profession</b> : forgeron</p></div>
     </div></div>
   </div>
 
@@ -7044,7 +7047,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : renvoyé dans ses foyers</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Jacques et Dominica Moruzzi</p><p><b>Profession</b> : employé de commerce</p><p><b>Naturalisation</b> : décret du 27/03/1918 STERLINI (Jean) sergent fourrier au régiment de marche de la Légion étrangère décoré de la croix de guerre né le 26 juillet 1890 à Bardi (Italie)</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : Renvoyé dans ses foyers</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Jacques et Dominica Moruzzi</p><p><b>Profession</b> : employé de commerce</p><p><b>Naturalisation</b> : décret du 27/03/1918 STERLINI (Jean) sergent fourrier au régiment de marche de la Légion étrangère décoré de la croix de guerre né le 26 juillet 1890 à Bardi (Italie)</p></div>
     </div></div>
   </div>
 
@@ -7209,7 +7212,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : resté au dépôt</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Elise Llopis</p><p><b>Décès</b> : mort en 1974 enterré à Lyon</p><p><b>Naturalisation</b> : JO 09/10/1932 TAITZ (Leizer), employé, ancien soldat de la légion étrangère, né le 13 septembre 1901 à Riga (Lettonie), demeurant à Lyon (Rhône)</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : Resté au dépôt</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Elise Llopis</p><p><b>Décès</b> : mort en 1974 enterré à Lyon</p><p><b>Naturalisation</b> : JO 09/10/1932 TAITZ (Leizer), employé, ancien soldat de la légion étrangère, né le 13 septembre 1901 à Riga (Lettonie), demeurant à Lyon (Rhône)</p></div>
     </div></div>
   </div>
 
@@ -7359,7 +7362,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : démobilisé</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Jacques et Suzanne Heinsbour</p><p><b>Mariage</b> : Mobilisé en qualité de sergent au 1er Régiment de marche du 2ème Etranger au Maroc. Mariage autorisé avec HECKY Berthe par arrêté du 26/01/1918. A noter : La future a obtenu une nouvelle autorisation de mariage avec une autre personne, car le mariage avec monsieur Theis n’a pas eu lieu. A noter : le futur est indiqué natif de Wiederwiltz (Luxembourg) mais cette ville n’existe pas.</p><p><b>Profession</b> : garçon boucher</p><p><b>Naturalisation</b> : naturalisé par décret du 10/08/1914 - caporal au 2è régiment étranger</p><p><b>Contexte</b> : Après la fin de contrat de la Légion, il s'installe au Luxembourg</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 7è Cie</p><p><b>Affectation définitive</b> : Démobilisé</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Parents</b> : Jacques et Suzanne Heinsbour</p><p><b>Mariage</b> : Mobilisé en qualité de sergent au 1er Régiment de marche du 2ème Etranger au Maroc. Mariage autorisé avec HECKY Berthe par arrêté du 26/01/1918. A noter : La future a obtenu une nouvelle autorisation de mariage avec une autre personne, car le mariage avec monsieur Theis n’a pas eu lieu. A noter : le futur est indiqué natif de Wiederwiltz (Luxembourg) mais cette ville n’existe pas.</p><p><b>Profession</b> : garçon boucher</p><p><b>Naturalisation</b> : naturalisé par décret du 10/08/1914 - caporal au 2è régiment étranger</p><p><b>Contexte</b> : Après la fin de contrat de la Légion, il s'installe au Luxembourg</p></div>
     </div></div>
   </div>
 
@@ -7494,7 +7497,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : resté au dépôt</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Laurence</p><p><b>Naturalisation</b> : JO 23/07/1933 TOROK (Michel), plombier, ancien soldat à la légion étrangère, né 29 avril 1897 à Cluj (Roumanie), demeurant à Lyon (Rhône)</p><p><b>Contexte</b> : En 1931, il est recensé 259 rue Duguesclin à Lyon</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : Resté au dépôt</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Mariage</b> : avec Laurence</p><p><b>Naturalisation</b> : JO 23/07/1933 TOROK (Michel), plombier, ancien soldat à la légion étrangère, né 29 avril 1897 à Cluj (Roumanie), demeurant à Lyon (Rhône)</p><p><b>Contexte</b> : En 1931, il est recensé 259 rue Duguesclin à Lyon</p></div>
     </div></div>
   </div>
 
@@ -7554,7 +7557,7 @@
       <svg class="chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="card-body"><div class="body-content">
-      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : affecté spécial</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Naturalisation</b> : JO 17/03/1935 URBANECK (Joseph), ferblantier, né le 27 Janvier 1902 à Vienne (Autriche), demeurant à Toulon (Var).</p></div>
+      <div class="section"><h4>Origine et engagement</h4><p><b>Affectation à Vancia/La Valbonne</b> : 5è Cie</p><p><b>Affectation définitive</b> : Affecté spécial</p></div><div class="section"><h4>État civil, famille, profession</h4><p><b>Naturalisation</b> : JO 17/03/1935 URBANECK (Joseph), ferblantier, né le 27 Janvier 1902 à Vienne (Autriche), demeurant à Toulon (Var).</p></div>
     </div></div>
   </div>
 
@@ -7979,6 +7982,7 @@
   </div>
 </div>
 <div class="no-results" id="rei-evdg-no-results">Aucune fiche ne correspond à cette recherche.</div>
+<div class="comment-wrap"><a class="comment-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfBWzNnn03VGZZMiIyHEoCzAlNdUlcu7rM21kLLR5g5jVKQ-Q/viewform?usp=pp_url&entry.920954121=EVDG-Vancia" target="_blank" rel="noopener">💬 Laisser un commentaire</a></div>
 </div>
 <script>
 function toggleCard(btn){
