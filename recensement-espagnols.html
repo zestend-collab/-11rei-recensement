@@ -87,13 +87,21 @@
   .rei-espagnols .back-to-top:hover{background:var(--link);}
   .rei-espagnols .back-to-site{display:inline-block;font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);text-decoration:none;margin-bottom:8px;padding:.3rem 0;transition:color .15s;}
   .rei-espagnols .back-to-site:hover{color:var(--link);}
-  .rei-espagnols .comment-wrap{text-align:center;margin:28px 0 6px;}
-  .rei-espagnols .comment-btn{display:inline-block;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;color:var(--ink);background:var(--orange);text-decoration:none;padding:.55rem 1.1rem;border-radius:20px;transition:background .15s;}
-  .rei-espagnols .comment-btn:hover{background:var(--link);color:#fff;}
+  .rei-espagnols .floating-comment-btn{
+    position:fixed;bottom:74px;right:18px;z-index:100;
+    display:flex;align-items:center;gap:.4rem;
+    font-family:'Inter',sans-serif;font-size:.78rem;font-weight:500;
+    color:var(--ink);background:var(--orange);text-decoration:none;
+    padding:.55rem 1rem;border-radius:24px;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+    transition:background .15s;white-space:nowrap;
+  }
+  .rei-espagnols .floating-comment-btn:hover{background:var(--link);color:#fff;}
 </style>
 <div class="rei-espagnols">
 <a href="https://www.11regimentetranger.com" class="back-to-site" title="Retour au site principal">← Retour au site</a>
 <button class="back-to-top" id="rei-espagnols-top" title="Retour en haut" aria-label="Retour en haut">↑</button>
+<a class="floating-comment-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfBWzNnn03VGZZMiIyHEoCzAlNdUlcu7rM21kLLR5g5jVKQ-Q/viewform?usp=pp_url&entry.920954121=Espagnols" target="_blank" rel="noopener">💬 Laisser un commentaire</a>
 
 <div class="page-intro">
 <p>La guerre d'Espagne a entraîné le départ de plusieurs vagues de réfugiés vers la France, de 1936 jusqu'en 1939 où la chute de Barcelone provoque, en quinze jours, un exode sans précédent. Près d'un demi million de personnes franchissent alors la frontière des Pyrénées, c'est la Retirada.</p>
@@ -3190,7 +3198,6 @@ Dt. 15, 76 06 300</p></div><div class="section"><h4>Situation militaire</h4><p><
     </div></div>
   </div>
 </div>
-<div class="comment-wrap"><a class="comment-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfBWzNnn03VGZZMiIyHEoCzAlNdUlcu7rM21kLLR5g5jVKQ-Q/viewform?usp=pp_url&entry.920954121=Espagnols" target="_blank" rel="noopener">💬 Laisser un commentaire</a></div>
 </div>
 <script>
 function toggleCard(btn){

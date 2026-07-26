@@ -135,16 +135,20 @@
   .back-to-top.show{ display:flex; }
   .back-to-top:hover{ background: var(--rust); }
 
-  .comment-cta{ text-align:center; margin: 34px 0 10px; }
-  .comment-btn{
-    display:inline-block; font-family:'Special Elite', monospace; font-size:12px; letter-spacing:1px; text-transform:uppercase;
+  .floating-comment-btn{
+    position:fixed; bottom:76px; right:20px; z-index:100;
+    display:flex; align-items:center; gap:.4rem;
+    font-family:'Special Elite', monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase;
     color: var(--paper); background: var(--rust); border: 1px solid var(--olive-dark);
-    padding: 10px 22px; text-decoration:none; transition: background .15s;
+    padding: 8px 16px; border-radius: 24px; text-decoration:none;
+    box-shadow: 0 2px 8px rgba(43,43,35,0.25);
+    transition: background .15s; white-space:nowrap;
   }
-  .comment-btn:hover{ background: var(--olive-dark); }
+  .floating-comment-btn:hover{ background: var(--olive-dark); }
 </style>
 </head>
 <body>
+<a class="floating-comment-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfBWzNnn03VGZZMiIyHEoCzAlNdUlcu7rM21kLLR5g5jVKQ-Q/viewform?usp=pp_url&entry.920954121=Blog-ordre%20de%20bataille" target="_blank" rel="noopener">💬 Laisser un commentaire</a>
 <div class="sheet">
 
   <a class="back-to-site" href="https://www.11regimentetranger.com" title="Retour au site principal">← Retour au site</a>
@@ -752,10 +756,6 @@
     <span>prisonnier</span>
     <span>évadé / disparu</span>
     <span>(A) active — (R) réserve</span>
-  </div>
-
-  <div class="comment-cta">
-    <a class="comment-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfBWzNnn03VGZZMiIyHEoCzAlNdUlcu7rM21kLLR5g5jVKQ-Q/viewform?usp=pp_url&entry.920954121=Blog-ordre%20de%20bataille" target="_blank" rel="noopener">Laisser un commentaire</a>
   </div>
 
   <footer>Reconstitué d'après « Ordre de bataille du 11e REI, mai-juin 1940 » — 11regimentetranger.com/blog/ordre-de-bataille</footer>
