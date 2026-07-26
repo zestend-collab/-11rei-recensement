@@ -250,7 +250,7 @@ function buildFilters(){
     '1er bataillon','2è bataillon','3è bataillon'
   ];
   const cieSet=new Set();
-  DATA.forEach(d=>{if(d.Cie1)cieSet.add(d.Cie1);if(d.Cie2)cieSet.add(d.Cie2)});
+  DATA.forEach(d=>{if(d.Cie1)cieSet.add(d.Cie1);if(d.Cie2)cieSet.add(d.Cie2);if(d.GroupeFranc)cieSet.add('Groupe franc')});
   const cies=[...cieSet].sort((a,b)=>{
     const ia=cieOrder.indexOf(a), ib=cieOrder.indexOf(b);
     if(ia>=0&&ib>=0) return ia-ib;
@@ -285,6 +285,9 @@ function render(rows){
 
     // Compagnie (fusionnee "puis", coherent avec les fiches par lettre)
     let cieHTML = [d.Cie1, d.Cie2].filter(Boolean).join(' puis ') || '—';
+    if(d.GroupeFranc){
+      cieHTML = (cieHTML==='—') ? 'Groupe franc' : cieHTML+' · Groupe franc';
+    }
 
     tr.innerHTML=`
       <td class="num">${d.num||''}</td>
@@ -325,7 +328,8 @@ function filterAndRender(){
         const nomEtVariantes=[d.Nom,d.Variantes,d.lieu].filter(Boolean).join(' ');
         if(!wcRegex.test(nomEtVariantes)) return false;
       } else {
-        const txt=[d.Nom,d.Variantes,d.Matricule,d.date,d.lieu,d.grade,d.Cie1,d.Cie2,d.Mort,d.Dlieu,
+        const txt=[d.Nom,d.Variantes,d.Matricule,d.date,d.lieu,d.grade,d.Cie1,d.Cie2,
+          d.GroupeFranc?'Groupe franc':null,d.Mort,d.Dlieu,
           d.MortCaptivite,d.Evasion,d.Deporte,d.MortDeportation,
           d.Resistant,d.ResistantDeporte,d.AFN,d.nationalite
         ].filter(Boolean).join(' ').toLowerCase();
@@ -333,7 +337,13 @@ function filterAndRender(){
       }
     }
     if(lieu && getPays(d)!==lieu) return false;
-    if(cie && d.Cie1!==cie && d.Cie2!==cie) return false;
+    if(cie){
+      if(cie==='Groupe franc'){
+        if(!d.GroupeFranc) return false;
+      } else if(d.Cie1!==cie && d.Cie2!==cie){
+        return false;
+      }
+    }
     if(dest){
       if(dest==='mort'        && !d.Mort) return false;
       if(dest==='prisonnier'  && !d.Prisonnier) return false;
