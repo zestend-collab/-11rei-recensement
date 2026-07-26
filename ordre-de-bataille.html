@@ -119,10 +119,35 @@
 
   .legend{ margin-top: 30px; font-size: 12px; color: var(--ink-soft); display:flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
   footer{ margin-top: 30px; text-align:center; font-size: 12px; color: var(--ink-soft); font-style: italic; }
+
+  .back-to-site{ display:inline-block; font-family:'Special Elite', monospace; font-size:11px; letter-spacing:0.5px; text-transform:uppercase; color: var(--olive-dark); text-decoration:none; margin-bottom: 14px; }
+  .back-to-site:hover{ color: var(--rust); }
+
+  .back-to-top{
+    position:fixed; bottom:20px; right:20px; z-index:100;
+    width:2.6rem; height:2.6rem; border-radius:50%;
+    background: var(--olive); color: var(--paper); border: 1px solid var(--olive-dark);
+    font-size:1.2rem; line-height:1; cursor:pointer;
+    box-shadow: 0 2px 8px rgba(43,43,35,0.25);
+    display:none; align-items:center; justify-content:center;
+    transition: opacity .2s, background .15s;
+  }
+  .back-to-top.show{ display:flex; }
+  .back-to-top:hover{ background: var(--rust); }
+
+  .comment-cta{ text-align:center; margin: 34px 0 10px; }
+  .comment-btn{
+    display:inline-block; font-family:'Special Elite', monospace; font-size:12px; letter-spacing:1px; text-transform:uppercase;
+    color: var(--paper); background: var(--rust); border: 1px solid var(--olive-dark);
+    padding: 10px 22px; text-decoration:none; transition: background .15s;
+  }
+  .comment-btn:hover{ background: var(--olive-dark); }
 </style>
 </head>
 <body>
 <div class="sheet">
+
+  <a class="back-to-site" href="https://www.11regimentetranger.com" title="Retour au site principal">← Retour au site</a>
 
   <div class="masthead">
     <div class="unit-tag">
@@ -729,8 +754,28 @@
     <span>(A) active — (R) réserve</span>
   </div>
 
+  <div class="comment-cta">
+    <a class="comment-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfBWzNnn03VGZZMiIyHEoCzAlNdUlcu7rM21kLLR5g5jVKQ-Q/viewform?usp=pp_url&entry.920954121=Blog-ordre%20de%20bataille" target="_blank" rel="noopener">Laisser un commentaire</a>
+  </div>
+
   <footer>Reconstitué d'après « Ordre de bataille du 11e REI, mai-juin 1940 » — 11regimentetranger.com/blog/ordre-de-bataille</footer>
 
 </div>
+
+<button class="back-to-top" id="ob-top" title="Retour en haut" aria-label="Retour en haut">↑</button>
+<script>
+(function(){
+  var btn = document.getElementById('ob-top');
+  function onScroll(){
+    if(window.scrollY > 500){ btn.classList.add('show'); }
+    else { btn.classList.remove('show'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  btn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+</script>
 </body>
 </html>
