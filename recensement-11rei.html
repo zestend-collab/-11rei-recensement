@@ -247,10 +247,10 @@ function buildFilters(){
     'CA1','CA2','CA3',
     'Compagnie de commandement','Compagnie Hors Rang',
     "Compagnie Régimentaire d'Engins",'État-Major','Groupe franc','Dépôt',
-    '1er bataillon','2è bataillon','3è bataillon'
+    '1er bataillon','2è bataillon','3è bataillon','Passé au 12è REI'
   ];
   const cieSet=new Set();
-  DATA.forEach(d=>{if(d.Cie1)cieSet.add(d.Cie1);if(d.Cie2)cieSet.add(d.Cie2);if(d.GroupeFranc)cieSet.add('Groupe franc')});
+  DATA.forEach(d=>{if(d.Cie1)cieSet.add(d.Cie1);if(d.Cie2)cieSet.add(d.Cie2);if(d.GroupeFranc)cieSet.add('Groupe franc');if(d.AutreRegiment)cieSet.add(d.AutreRegiment)});
   const cies=[...cieSet].sort((a,b)=>{
     const ia=cieOrder.indexOf(a), ib=cieOrder.indexOf(b);
     if(ia>=0&&ib>=0) return ia-ib;
@@ -287,6 +287,9 @@ function render(rows){
     let cieHTML = [d.Cie1, d.Cie2].filter(Boolean).join(' puis ') || '—';
     if(d.GroupeFranc){
       cieHTML = (cieHTML==='—') ? 'Groupe franc' : cieHTML+' · Groupe franc';
+    }
+    if(d.AutreRegiment){
+      cieHTML = (cieHTML==='—') ? d.AutreRegiment : cieHTML+' · '+d.AutreRegiment;
     }
 
     tr.innerHTML=`
@@ -329,7 +332,7 @@ function filterAndRender(){
         if(!wcRegex.test(nomEtVariantes)) return false;
       } else {
         const txt=[d.Nom,d.Variantes,d.Matricule,d.date,d.lieu,d.grade,d.Cie1,d.Cie2,
-          d.GroupeFranc?'Groupe franc':null,d.Mort,d.Dlieu,
+          d.GroupeFranc?'Groupe franc':null,d.AutreRegiment,d.Mort,d.Dlieu,
           d.MortCaptivite,d.Evasion,d.Deporte,d.MortDeportation,
           d.Resistant,d.ResistantDeporte,d.AFN,d.nationalite
         ].filter(Boolean).join(' ').toLowerCase();
@@ -340,6 +343,8 @@ function filterAndRender(){
     if(cie){
       if(cie==='Groupe franc'){
         if(!d.GroupeFranc) return false;
+      } else if(cie==='Passé au 12è REI'){
+        if(!d.AutreRegiment) return false;
       } else if(d.Cie1!==cie && d.Cie2!==cie){
         return false;
       }
