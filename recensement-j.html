@@ -241,10 +241,11 @@ function renderCard(p){
   // Chacune a son propre onerror : si le fichier n'existe pas, seule cette vignette disparaît
   // (n'affecte ni la bulle du header, ni le portrait principal).
   const EXTRA_PHOTOS_MAX = 2; // nombre de photos additionnelles tentées (-2, -3)
+  const onErrExtra = "this.closest('.portrait-extra').style.display='none';";
   let extrasHtml = '';
   for (let i = 2; i <= EXTRA_PHOTOS_MAX + 1; i++) {
     const extraUrl = PHOTO_BASE + encodeURIComponent(p.id) + '-' + i + '.jpg';
-    extrasHtml += '<div class="portrait-extra"><img src="' + extraUrl + '" alt="Autre portrait de ' + esc(fullName) + '" loading="lazy" onerror="this.closest('.portrait-extra').style.display='none'"></div>';
+    extrasHtml += '<div class="portrait-extra"><img src="' + extraUrl + '" alt="Autre portrait de ' + esc(fullName) + '" loading="lazy" onerror="' + onErrExtra + '"></div>';
   }
   const largeHtml = '<div class="portrait-col"><div class="portrait-large"><img src="' + photoUrl + '" alt="Portrait de ' + esc(fullName) + '" loading="lazy" onerror="' + onErr + '"><div class="cap">Portrait</div></div>' + extrasHtml + '</div>';
   return `
