@@ -70,14 +70,16 @@
   .portrait-thumb img{width:100%;height:100%;object-fit:cover;display:block}
   .card.has-photo .portrait-thumb{display:block}
 
-  .portrait-large{flex-shrink:0;width:7.5rem;text-align:center}
+  .portrait-col{flex-shrink:0;width:7.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .portrait-large{text-align:center}
   .portrait-large img{width:100%;aspect-ratio:3/4;object-fit:cover;border:2px solid var(--white);outline:1px solid var(--border);display:block}
   .portrait-large .cap{font-size:.62rem;color:var(--muted);margin-top:.3rem;font-family:'Inter',sans-serif}
+  .portrait-extra img{width:100%;aspect-ratio:3/4;object-fit:cover;border:2px solid var(--white);outline:1px solid var(--border);display:block}
   .body-with-photo{display:flex;gap:1.1rem;align-items:flex-start}
   .body-with-photo .body-main{flex:1;min-width:0}
   @media (max-width:480px){
     .body-with-photo{flex-direction:column-reverse}
-    .portrait-large{width:6.5rem;margin:0 auto}
+    .portrait-col{width:6.5rem;margin:0 auto}
   }
 
   .letter-nav{background:var(--white);border-bottom:1px solid var(--border)}
@@ -235,7 +237,16 @@ function renderCard(p){
   const photoUrl = PHOTO_BASE + encodeURIComponent(p.id) + '.jpg';
   const onErr = "this.closest('.card').classList.remove('has-photo'); this.closest('.portrait-thumb,.portrait-large').style.display='none';";
   const thumbHtml = '<div class="portrait-thumb"><img src="' + photoUrl + '" alt="" loading="lazy" onerror="' + onErr + '"></div>';
-  const largeHtml = '<div class="portrait-large"><img src="' + photoUrl + '" alt="Portrait de ' + esc(fullName) + '" loading="lazy" onerror="' + onErr + '"><div class="cap">Portrait</div></div>';
+  // Photos supplémentaires (optionnelles) : <identifiant>-2.jpg, <identifiant>-3.jpg sur le même repo GitHub.
+  // Chacune a son propre onerror : si le fichier n'existe pas, seule cette vignette disparaît
+  // (n'affecte ni la bulle du header, ni le portrait principal).
+  const EXTRA_PHOTOS_MAX = 2; // nombre de photos additionnelles tentées (-2, -3)
+  let extrasHtml = '';
+  for (let i = 2; i <= EXTRA_PHOTOS_MAX + 1; i++) {
+    const extraUrl = PHOTO_BASE + encodeURIComponent(p.id) + '-' + i + '.jpg';
+    extrasHtml += '<div class="portrait-extra"><img src="' + extraUrl + '" alt="Autre portrait de ' + esc(fullName) + '" loading="lazy" onerror="this.closest('.portrait-extra').style.display='none'"></div>';
+  }
+  const largeHtml = '<div class="portrait-col"><div class="portrait-large"><img src="' + photoUrl + '" alt="Portrait de ' + esc(fullName) + '" loading="lazy" onerror="' + onErr + '"><div class="cap">Portrait</div></div>' + extrasHtml + '</div>';
   return `
   <div class="card has-photo" id="${p.id}" data-id="${p.id}">
     <div class="card-head" onclick="toggleCard('${p.id}')">
