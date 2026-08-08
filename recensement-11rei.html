@@ -98,6 +98,7 @@
   .b-deporte  {background:#d5d8dc;color:#1c2833}
   .b-resistant{background:#fdebd0;color:#935116}
   .b-afn      {background:#fef9e7;color:#7d6608}
+  .b-aconfirmer{background:#fffbeb;color:#b45309;border:1px solid #f59e0b}
   .detail{font-size:.73rem;color:var(--muted);margin-top:.2rem;line-height:1.35}
   .dlieu{font-size:.73rem;color:#922b21;margin-top:.15rem}
 
@@ -217,6 +218,7 @@ function destCat(d){
 // Build badges for destin column
 function buildDestin(d){
   let h='';
+  if(d.ACConfirmer)      h+=`<span class="badge b-aconfirmer">À confirmer</span>`;
   if(d.Mort)             h+=`<span class="badge b-mort">${truncMort(d.Mort)}</span>`;
   if(d.MortApres)        h+=`<span class="badge b-mort">${truncMort(d.MortApres)}</span>`;
   if(d.Prisonnier)       h+=`<span class="badge b-prisonnier">Prisonnier</span>`;
