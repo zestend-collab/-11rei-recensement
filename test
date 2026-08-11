@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médaillés du 11e REI</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --vert-legion: #0E4429;
+            --rouge-legion: #CE1126;
+            --or-militaire: #D4AF37;
+            --fond-sombre: #151b18;
+            --carte-fond: #202b26;
+            --texte-clair: #f4f6f5;
+        }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--fond-sombre); color: var(--texte-clair); margin: 0; padding: 20px; }
+        .header-title { text-align: center; font-family: 'Cinzel', serif; border-bottom: 2px solid var(--or-militaire); padding-bottom: 15px; margin-bottom: 30px; }
+        .header-title h1 { color: var(--or-militaire); margin: 0; font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; }
+        .soldat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .soldat-card { background-color: var(--carte-fond); border-left: 4px solid var(--vert-legion); border-radius: 6px; padding: 20px; transition: transform 0.2s; }
+        .soldat-card:hover { transform: translateY(-3px); border-left-color: var(--rouge-legion); }
+        .soldat-name { font-family: 'Cinzel', serif; font-size: 1.25rem; color: #fff; margin: 0 0 4px 0; }
+        .soldat-rank { font-size: 0.9rem; color: var(--or-militaire); text-transform: uppercase; }
+        .badge-deco { display: inline-block; background-color: rgba(212, 175, 55, 0.15); border: 1px solid var(--or-militaire); color: var(--or-militaire); padding: 3px 8px; font-size: 0.75rem; border-radius: 4px; }
+        .soldat-citation { font-size: 0.88rem; line-height: 1.5; color: #d1ddd7; background: rgba(0,0,0,0.15); padding: 10px; border-radius: 4px; margin-top: 10px; }
+        .soldat-meta { margin-top: 15px; font-size: 0.8rem; color: #8fa096; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
+        @media (max-width: 480px) { .soldat-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="header-title">
+        <h1>MÉDAILLÉS ET CITÉS DU 11e REI</h1>
+        <p>Campagne 1939 - 1940 • À la mémoire des Légionnaires</p>
+    </div>
+    <div class="soldat-grid">
+        <!-- Répétez ce bloc pour chaque soldat -->
+        <div class="soldat-card">
+            
+                <h2 class="soldat-name">NOM Prénom</h2>
+                <p class="soldat-rank">Grade — Unité</p>
+                <span class="badge-deco">Décoration (Date)</span>
+            </div>
+            <p class="soldat-citation">"Citation du soldat issue des sources..."</p>
+            <div class="soldat-meta"><span>Date</span><span>Lieu</span></div>
+        </div>
+    </div>
+</body>
+</html>
