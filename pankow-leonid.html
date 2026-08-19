@@ -25,17 +25,32 @@
   header .back:hover{text-decoration:underline}
 
   article{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1.6rem;
-    font-size:.92rem;line-height:1.7}
+    font-size:.92rem;line-height:1.7;text-align:justify}
   article .lede{font-family:'EB Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--ink);
     border-left:3px solid var(--orange);padding-left:1rem;margin-bottom:1.6rem}
   article h2{font-family:'EB Garamond',serif;font-weight:600;font-size:1.25rem;
     border-bottom:2px solid var(--orange);padding-bottom:.3rem;margin:1.8rem 0 .8rem}
   article h2:first-of-type{margin-top:0}
+  article h3.subhead{font-family:'Inter',sans-serif;font-weight:500;font-size:.78rem;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--muted);margin:1.6rem 0 .6rem}
+  article blockquote.testimony{font-family:'EB Garamond',serif;font-style:italic;font-size:.92rem;
+    color:var(--ink);background:var(--row);border-left:3px solid var(--orange);border-radius:0 4px 4px 0;
+    padding:.9rem 1.1rem;margin:.8rem 0 1.2rem}
+  article .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:1.2rem 0}
+  article .gallery img{width:100%;border-radius:4px;display:block}
   article p{margin-bottom:1rem}
   article ul{margin:0 0 1rem 1.2rem}
   article li{margin-bottom:.3rem}
   article figure{margin:1.2rem 0}
   article img{max-width:100%;border-radius:4px;display:block}
+  article figure.size-full{width:100%}
+  article figure.size-medium{width:min(420px,100%);margin-left:auto;margin-right:auto}
+  article figure.size-small{width:min(240px,100%);margin-left:auto;margin-right:auto}
+  article figcaption{font-family:'Inter',sans-serif;font-size:.72rem;color:var(--muted);
+    text-align:center;margin-top:.4rem;font-style:italic}
+  article .imgrow{display:flex;gap:12px;margin:1.2rem 0;flex-wrap:wrap}
+  article .imgrow figure{flex:1;min-width:160px;margin:0}
+  article .imgrow img{width:100%}
   article .sources{margin-top:1.8rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.82rem}
   article .sources h3{font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
     color:var(--muted);margin-bottom:.5rem}
@@ -67,8 +82,7 @@
 <p>La famille s'installe à Pskov où Léonid va à l'école élémentaire et primaire. Son père est employé des chemins de fer.</p>
 <p>En 1919, Léonid est évacué vers Kovno en Lituanie. En 1921, avec son frère, il sert un temps dans l'armée blanche, au sein du 5e régiment de fusiliers de la 3e armée russe opérant en Pologne, avant de rompre avec ce milieu et de se rapprocher du mouvement ouvrier.</p>
 <p>De retour à Kovno, il travaille au dépôt de réparations de machines ferroviaires. En 1922, lors d'une grève d'ouvriers du dépôt de Kovno, il se politise et adhère au syndicat des ouvriers puis au Parti communiste ; il cite comme parrain un camarade Pojells, fusillé à Kovno la même année.</p>
-<figure><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos-blog/main/blog-pankow-leonid-2.jpg" alt=""></figure>
-<figure><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos-blog/main/blog-pankow-leonid-3.jpg" alt=""></figure>
+<div class="imgrow"><figure><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos-blog/main/blog-pankow-leonid-2.jpg" alt=""></figure><figure><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos-blog/main/blog-pankow-leonid-3.jpg" alt=""></figure></div>
 <h2>France et militantisme</h2>
 <p>En 1924, Pankov gagne la France et s'installe notamment à Marseille et Toulon, où il travaille comme technicien, charpentier et chauffeur dans la marine marchande ou des ateliers portuaires. Il adhère à la CGT et participe à des grèves et manifestations, dont la grève des ouvriers de Toulon en 1935, tout en restant membre du Parti communiste.</p>
 <h2>Brigadiste en Espagne républicaine</h2>
@@ -77,7 +91,7 @@
 <p>Après le retrait des Brigades internationales, Pankov se retrouve en France, où il figure comme engagé volontaire pour la durée de la guerre (EVDG) dans les registres de l'intendance militaire de Pau, classe 1939. Il sert alors comme soldat de 2e classe à la Compagnie d'accompagnement n°1 du 11e régiment étranger d'infanterie pendant la campagne de 1939-1940. Son expérience acquise en Espagne explique logiquement son orientation vers la CA1, où l'on regroupe les volontaires étrangers dotés de compétences techniques sur les armes automatiques.</p>
 <h2>Profil</h2>
 <p>Pankov se présente comme peu instruit sur le plan scolaire, ayant seulement fréquenté l'école élémentaire et primaire à Pskov, sans études professionnelles. En revanche, il lit la presse communiste (Pravda, Izvestia, Krokodil, L'Humanité, Regards), s'intéresse aux questions internationales du mouvement ouvrier et à la mécanique, et parle et écrit plusieurs langues — russe, français, espagnol, lituanien et polonais.</p>
-<figure><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos-blog/main/blog-pankow-leonid-4.jpg" alt=""></figure>
+<figure class="size-medium"><img src="https://raw.githubusercontent.com/zestend-collab/11rei-photos-blog/main/blog-pankow-leonid-4.jpg" alt=""></figure>
 
 <div class="sources">
   <h3>Sources</h3>
