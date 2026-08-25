@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journal de marche — I° Bataillon, XI° R.E.I. (16 avril – 31 mai 1940)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=EB+Garamond:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* palette du site (identique a generateur_page_compagnie.py) */
+    --bg:#cccccc; --card:#ffffff; --orange:#fab855; --link:#ff9900;
+    --site-ink:#1a1a18; --muted:#555555; --border:#aaaaaa; --row:#f7f7f7;
+    /* palette propre au "papier" du carnet, laissee telle quelle */
+    --paper:#e7dcb9;
+    --paper2:#ddd0a4;
+    --ink:#39304a;
+    --ink-soft:#4c4160;
+    --accent:#7b2c33;
+    --binding:#5b4636;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; min-height:100vh;
+    background:var(--bg);
+    color:var(--site-ink);
+    font-family:'Inter', sans-serif;
+  }
+  .stage{
+    display:flex; flex-direction:column; align-items:center;
+    padding:28px 14px 46px;
+    min-height:100vh;
+    gap:14px;
+  }
+  .masthead{ text-align:center; }
+  .masthead .crest{
+    color:var(--muted); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+    margin:0 0 4px;
+  }
+  .masthead h1{
+    color:var(--site-ink); font-size:clamp(16px,2.2vw,21px); letter-spacing:.02em;
+    margin:0 0 4px; font-weight:600;
+  }
+  .masthead p{
+    color:var(--muted); font-size:12.5px; margin:0; font-family:'EB Garamond', serif; font-style:italic;
+  }
+
+  .book-wrap{
+    position:relative;
+    perspective:2600px;
+    margin-top:6px;
+  }
+  .spine{
+    position:absolute; left:-14px; top:-6px; bottom:-6px; width:24px;
+    background:linear-gradient(90deg, #3d2e22, var(--binding) 55%, #4a382a);
+    border-radius:6px 2px 2px 6px;
+    box-shadow:inset -3px 0 6px rgba(0,0,0,.35), 0 4px 12px rgba(0,0,0,.25);
+    z-index:0;
+  }
+  .spine::before{
+    content:''; position:absolute; inset:8px 5px;
+    background-image:repeating-linear-gradient(180deg, rgba(230,210,170,.15) 0 2px, transparent 2px 14px);
+  }
+
+  .book{
+    position:relative;
+    width:min(92vw,600px);
+    height:min(84vh,820px);
+    transform-style:preserve-3d;
+    filter:drop-shadow(6px 12px 22px rgba(0,0,0,.28));
+  }
+
+  .leaf{
+    position:absolute; inset:0;
+    transform-style:preserve-3d;
+    transform-origin:left center;
+    transition:transform 1.05s cubic-bezier(.63,.02,.28,1);
+  }
+  .leaf.flipped{ transform:rotateY(-178deg); }
+  @media (prefers-reduced-motion: reduce){
+    .leaf{ transition:transform .01s linear; }
+  }
+
+  .face{
+    position:absolute; inset:0;
+    backface-visibility:hidden;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(120,90,45,.10), transparent 22%),
+      radial-gradient(circle at 85% 76%, rgba(120,90,45,.09), transparent 26%),
+      radial-gradient(circle at 70% 12%, rgba(120,90,45,.06), transparent 20%),
+      linear-gradient(135deg, var(--paper), var(--paper2));
+    border:1px solid rgba(70,50,20,.3);
+    border-radius:2px 8px 8px 2px;
+    box-shadow:2px 6px 14px rgba(0,0,0,.22), inset 0 0 40px rgba(120,90,45,.12);
+    padding:20px 20px 16px 24px;
+    overflow:hidden;
+  }
+  .face.back{
+    transform:rotateY(180deg);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .face.back::after{
+    content:'XI° R.E.I.';
+    font-family:'Special Elite', monospace;
+    font-size:46px; color:rgba(70,55,30,.08); letter-spacing:.2em;
+    transform:rotate(-8deg);
+  }
+
+  .page-chrome-top{
+    font-family:'Special Elite', monospace;
+    font-size:9.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:rgba(70,55,35,.55); border-bottom:1px solid rgba(70,55,35,.25);
+    padding-bottom:6px; margin-bottom:10px;
+  }
+  .page-content{
+    height:calc(100% - 46px);
+    overflow:hidden;
+    font-family:'Special Elite', monospace;
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+
+  .page-content p{ margin:0 0 12px; text-align:justify; }
+  .date{
+    font-weight:700; text-decoration:underline; text-underline-offset:2px;
+    color:var(--ink-soft); margin-right:4px;
+  }
+  .note{ font-style:italic; font-weight:400; text-decoration:none; font-size:11px; color:rgba(70,55,35,.6); }
+
+  .letterhead{ text-align:center; margin-bottom:6px; }
+  .letterhead .regiment{
+    font-weight:700; letter-spacing:.06em; font-size:12.5px; margin:0 0 2px;
+  }
+  .letterhead.small .regiment{ font-size:10.5px; letter-spacing:.03em; }
+  .letterhead .battalion{ font-size:11px; margin:0; }
+  .doc-title{
+    text-align:center; font-size:14px; font-weight:400; text-transform:uppercase;
+    letter-spacing:.05em; margin:10px 0 16px; line-height:1.5;
+    border-top:1px solid rgba(70,55,35,.35); border-bottom:1px solid rgba(70,55,35,.35);
+    padding:8px 0;
+  }
+  .doc-sub{ display:block; font-size:12px; margin-top:3px; }
+
+  blockquote{
+    margin:0 0 10px; padding:6px 0 6px 14px; border-left:2px solid var(--accent);
+    font-style:italic; color:var(--ink-soft);
+  }
+  .ref{ font-size:11px; color:rgba(70,55,35,.65); }
+  .poignant{ color:var(--accent); }
+
+  .sign-block{ margin-top:10px; text-align:right; }
+  .sign-block p{ margin:0 0 4px; text-align:right; }
+  .signature{ font-style:italic; font-size:15px; margin-top:6px !important; }
+
+  ul.dispositif{ margin:0 0 12px; padding-left:16px; }
+  ul.dispositif li{ margin-bottom:6px; }
+
+  .pertes-title{ font-weight:700; text-decoration:underline; margin-bottom:6px !important; }
+  ul.pertes{
+    list-style:none; margin:0 0 14px; padding:0;
+    font-size:12px; line-height:1.55;
+  }
+  ul.pertes li{ padding:1px 0; border-bottom:1px dotted rgba(70,55,35,.25); }
+  ul.pertes.two-col{ columns:2; column-gap:18px; }
+  ul.pertes.two-col li{ break-inside:avoid; }
+
+  /* la couleur des folios reste celle du carnet, inchangee */
+  .folio{
+    position:absolute; bottom:8px; right:16px; font-size:10px;
+    font-family:'Special Elite', monospace;
+    color:rgba(70,55,35,.55); letter-spacing:.1em;
+  }
+
+  .corner-fold{
+    position:absolute; width:34px; height:34px; cursor:pointer;
+    bottom:0; right:0;
+    background:linear-gradient(135deg, transparent 50%, rgba(0,0,0,.18) 52%, rgba(120,95,55,.35) 100%);
+    border-radius:0 0 6px 0;
+  }
+  .corner-fold.left{
+    right:auto; left:0; bottom:0;
+    background:linear-gradient(225deg, transparent 50%, rgba(0,0,0,.18) 52%, rgba(120,95,55,.35) 100%);
+    border-radius:0 0 0 6px;
+  }
+  .corner-fold:hover{ filter:brightness(1.2); }
+
+  .controls{
+    display:flex; align-items:center; gap:18px; margin-top:4px;
+  }
+  .nav-btn{
+    width:2.2rem;height:2.2rem;border-radius:50%;border:1px solid var(--border);
+    background:var(--card); color:var(--site-ink); font-size:1rem; cursor:pointer;
+    font-family:inherit; display:flex; align-items:center; justify-content:center;
+    transition:background .15s ease, color .15s ease;
+  }
+  .nav-btn:hover:not(:disabled){ background:var(--orange); }
+  .nav-btn:disabled{ opacity:.35; cursor:default; }
+  .folio-label{
+    color:var(--muted); font-size:.75rem; letter-spacing:.04em; min-width:110px; text-align:center;
+    font-variant-numeric:tabular-nums;
+  }
+  .hint{
+    color:var(--muted); font-size:11px; font-family:'EB Garamond', serif; font-style:italic;
+    margin-top:2px; text-align:center;
+  }
+
+  /* bouton commentaire, meme style que le reste du site */
+  .floating-comment-btn{
+    position:fixed; bottom:18px; right:18px; z-index:100;
+    display:flex; align-items:center; gap:.4rem;
+    font-family:'Inter', sans-serif; font-size:.78rem; font-weight:500;
+    color:var(--site-ink); background:var(--orange);
+    padding:.6rem 1rem; border-radius:20px; text-decoration:none;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+  }
+  .floating-comment-btn:hover{ background:var(--link); color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- Remplacez COMMENT_URL par l'URL du formulaire de commentaire de cette page (meme systeme que les autres pages du site) -->
+<a class="floating-comment-btn" href="COMMENT_URL" target="_blank" rel="noopener">💬 Laisser un commentaire</a>
+
+<div class="stage">
+  <div class="masthead">
+    <p class="crest">XI° Régiment Étranger d'Infanterie — I° Bataillon</p>
+    <h1>Journal de marche du 1er Bataillon</h1>
+    <p>16 avril – 31 mai 1940 · Capitaine Rouillon</p>
+  </div>
+
+  <div class="book-wrap">
+    <div class="spine"></div>
+    <div class="book" id="book"></div>
+  </div>
+
+  <div class="controls">
+    <button class="nav-btn" id="prevBtn" aria-label="Page précédente">‹</button>
+    <span class="folio-label" id="folioLabel"></span>
+    <button class="nav-btn" id="nextBtn" aria-label="Page suivante">›</button>
+  </div>
+  <p class="hint">cliquez sur le coin d'une page, ou utilisez les flèches du clavier, pour la tourner</p>
+</div>
+
+<script>
+// Chaque entree du journal est decoupee en blocs distincts (un bloc = un <p>, une <ul>, un
+// <blockquote>...). La pagination assemble ensuite ces blocs automatiquement, page par page,
+// a taille de police FIXE : jamais de mot coupe, jamais de changement brutal de taille.
+// S'il y a plus de pages que dans le carnet original, ce n'est pas un probleme.
+const blocks = [
+
+`<div class="letterhead">
+  <p class="regiment">XI° RÉGIMENT ÉTRANGER<br>D'INFANTERIE</p>
+  <p class="battalion">I° BATAILLON</p>
+</div>
+<h2 class="doc-title">Journal de marche du 1° Bataillon<span class="doc-sub">du 16 au 30 avril</span></h2>
+<p><span class="date">16 Avril</span> – Même dispositif. Reconnaissance des gradés et des Officiers aux avant-postes pour préparer la relève de la compagnie du 21° R.T.A. qui tient actuellement la ligne de contact. Préparation des travaux à exécuter sur les avant-lignes.</p>`,
+
+`<p><span class="date">17 Avril</span> – Relève à 5 heures du matin des avant-postes par la 1° Cie. Dispositif : P.C. de la 1° Cie et section du Lieutenant PIERRE : Filstroff ; P.A. de la cote 328, sous-Lieutenant SAUTOUR. P.A. de la cote 262, lieutenant JURION. P.A. du Bois Carré, Adjudant-Chef FOKINE. Continuation des travaux sur les avant-lignes.</p>`,
+`<p><em>Evacués : Adjudant MARGUILIES, de la 3° Cie, pour maladie – REANT Fernand et TIMACHENKO Sivirian de la 1° Cie.</em></p>`,
+
+`<p><span class="date">18 Avril</span> – Même dispositif.</p>`,
+
+`<p><span class="date">19 Avril</span> – Même dispositif. Continuation des travaux sur l'avant-ligne.</p>`,
+`<p><em>Evacués : STIEVENARD de la 2° Cie, pour maladie.</em></p>`,
+
+`<p><span class="date">20 Avril</span> – Même dispositif. Continuation des travaux du STOCKHOLTZ, sur l'avant-ligne et aux P.A.</p>`,
+
+`<p><span class="date">21 Avril</span> – Mêmes dispositifs. Mêmes travaux. MARTEL de la C.A.1 a été évacué le 17 avril d'Hagondange.</p>`,
+
+`<p><span class="date">22 Avril</span> – Même dispositif. Mêmes travaux. Hier, 21 avril, à plusieurs reprises le poste et l'observatoire 262 ont été bombardés. Une quarantaine d'obus sont tombés à l'intérieur du Poste. La ligne téléphonique a été coupée.</p>`,
+`<p>Deux obus sont tombés sur l'observatoire commandé par le Caporal-Chef GUELBRUNNER. Le Lieutenant JURION, avant l'arrivée des téléphonistes, est sorti de son abri et a effectué une réparation de fortune malgré des tirs d'armes automatiques.</p>`,
+`<p>Le Colonel ROBERT, Cdt le XI° R.E.I. remet à Filstroff la Croix de Guerre au légionnaire GOLAZ, cité à l'ordre du Régiment en ces termes :</p>`,
+`<blockquote>« Légionnaire faisant preuve de calme et d'esprit de décision. Excellente attitude au feu. Le 19 Avril, placé comme sentinelle en terrain découvert, a été attaqué par une patrouille ennemie à coups de grenades et de mitraillette. Sommé de se rendre a riposté à coups de fusil et a mis en fuite ses agresseurs. »</blockquote>
+<p class="ref">(Citation approuvée par le Colonel Cdt par Intérim l'I.D. le 20 Avril 1940, sous le N°5555 – Ordre du Régiment n°61. Annexe à la décision n°55 du 20.4.40.)</p>`,
+
+`<p><span class="date">23 Avril</span> – Même dispositif. Mêmes travaux. Evacués du 22 Avril : s/Lt LEVY, pour maladie. Reconnaissance du Quartier par les Officiers du G.R.37, qui doivent relever le 1° Bataillon dans quelques jours.</p>`,
+`<p><span class="date">24 Avril</span> – Même dispositif. Mêmes travaux.</p>`,
+`<p><span class="date">25 Avril</span> – Nuit du 25 au 26 relève de l'avant-ligne (2°-3°-C.A.1) par des éléments du G.R.37. Réunion au Camp de Bockange.</p>`,
+`<p><span class="date">26 Avril</span> – Nuit du 26 au 27, relève de l'échelon de contact (1° Cie et un G.M. commandé par le Lieutenant MONDON, échelon avancé des transmissions et du service sanitaire). Réunion de tout le Bataillon au camp de Bockange.</p>`,
+`<p><span class="date">27 Avril</span> – Revue d'armes et de matériel – Aménagement du Cantonnement.</p>`,
+`<p><span class="date">28 Avril</span> – Repos.</p>`,
+`<p><span class="date">29 Avril</span> – Exercice de défilé.</p>`,
+
+`<p><span class="date">30 Avril</span> – Fête de Camerone – Présentation du Régiment au Drapeau dans une prairie à 1 km. au N.W. de Boulay. Lecture du Combat de Camerone, par le Lieutenant MALAUD de la C.C.</p>`,
+`<p>Dans l'après-midi, un banquet réunit tous les officiers du Régiment à Boulay. Le Général CONDÉ, Cdt la 3° Armée, assistait à ce banquet. Distribution de lots aux légionnaires du 1° Bataillon. Ces lots avaient été rassemblés à Paris par le Sergent CHAUVEAU.</p>`,
+`<div class="sign-block">
+  <p>S.P. 12.956, le 1° Mai 1940.</p>
+  <p>Le Capitaine ROUILLON, Commandant le 1° Bataillon du XI° Régiment Étranger.</p>
+  <p class="signature">signé : Rouillon</p>
+</div>`,
+
+`<div class="letterhead small">
+  <p class="regiment">XI° RÉGIMENT ÉTRANGER D'INFANTERIE — I° BATAILLON — N° 3966/D.</p>
+</div>
+<h2 class="doc-title">Extrait du journal de marche<span class="doc-sub">du 1° au 15 mai 1940</span></h2>
+<p><span class="date">1° Mai</span> – Repos dans la matinée. L'après-midi, début des travaux. La 1° Cie travaille à Hestroff, la 2° au Warschmuhl et derrière Streifel, la 3° Cie et la C.A.1 dans les bois de Gomelange. Tout le bataillon travaille à un fossé anti-char.</p>`,
+
+`<p><span class="date">2 Mai</span> – Repos. Aménagement du Cantonnement. Travaux de propreté.</p>`,
+`<p><span class="date">3 Mai</span> – Reprise des travaux du fossé anti-char. Evacués du 1° mai : SMUTNI, Caporal de la C.A.1. MERTENS, Caporal, et RIVOLTA de la 2° Cie, tous pour maladie.</p>`,
+`<p><span class="date">4 Mai</span> – Continuation des travaux du fossé anti-char dans la matinée. Dans l'après-midi, revue d'armes et travaux de propreté. Evacués : MANNES de la C.A.1 pour maladie, GARCIA de la C.A.1 pour maladie ; VASIKA de la 1° Cie, pour maladie.</p>`,
+`<p><span class="date">5 Mai</span> – Repos. Evacué, SPICHALLA de la 1° Cie.</p>`,
+`<p><span class="date">6 Mai</span> – Continuation des travaux du fossé anti-char aux mêmes emplacements.</p>`,
+`<p><span class="date">7 Mai</span> – Epouillage de la 1° Cie à Gomelange. Continuation des travaux pour les autres compagnies. Une équipe de la Section de Commandement travaille à Burtoncourt. Evacués du 6 mai : MORATTO de la 1° Cie, pour maladie, et SKIZYLAS de la 2° Cie, pour fracture extrémité radius.</p>`,
+`<p><span class="date">8 Mai</span> – Epouillage de la 2° Cie à Gomelange. Continuation des travaux pour les autres compagnies.</p>`,
+`<p><span class="date">9 Mai</span> – Epouillage de la 3° Cie à Gomelange. Continuation des travaux pour les autres Compagnies.</p>`,
+`<p><span class="date">10 Mai</span> – Epouillage de la C.A.1 à Gomelange. Continuation des travaux pour les autres compagnies. A 8 heures du matin, application mesure 33.</p>`,
+
+`<p><span class="date">11 Mai</span> – Mesure d'alerte 33 reste appliquée. Exercices d'alertes en cas de bombardements aériens. Tirs au fusil et à la mitraillette. Evacués du 10 Mai : CARPENTIER de la 2° Cie et CLEE de la C.A.1.</p>`,
+`<p><span class="date">13 Mai</span> – Mesure d'alerte 33 reste appliquée. Reprise du travail sur tous les chantiers précédents.</p>`,
+`<p class="poignant">Le matin, le Lieutenant JURION, de la 1° Cie, a été tué au Nord de Filstroff. Il avait reçu une mission de reconnaissance le long du Remel, il devait ensuite se placer en embuscade devant le Bois Carré et rentrer à 3 heures du matin.</p>`,
+`<p class="poignant">Il avait terminé sa mission et était sur le chemin du retour à hauteur de la cote 238 lorsque le poste de la cote 262 fut attaqué. Il s'est porté de sa propre initiative pour dégager le poste. Il a été pris dans le barrage d'Artillerie qu'il a traversé ; en arrivant à hauteur du poste de 262, il a été blessé grièvement avec 8 de ses légionnaires.</p>`,
+`<p class="poignant">Ramené sur l'arrière, il est mort en arrivant à Filstroff. Le reste du Groupe-Franc, quoique privé de son chef, a ouvert le feu sur l'ennemi et a participé à la reprise de 262. La conduite du Groupe-Franc a été splendide. Le légionnaire SIMECK a été tué dans ce combat.</p>`,
+
+`<p><span class="date">12 Mai</span> <span class="note">(ainsi placé dans le document original)</span> – Mesure d'alerte 33 reste appliquée. Repos. Evacués du 11 Mai : MOKROGULSKI de la 2° Cie, et MONVOISIN, de la C.A.1, tous les deux pour opération chirurgicale.</p>`,
+`<p><span class="date">14 Mai</span> – Dans la matinée du 14, de 5 à 9 heures, déplacement de Bockange à Nouilly (P.C. Bataillon et C.A.1), Noisseville (1° et 2°), Mey (3°).</p>`,
+`<p><span class="date">15 Mai</span> – Nuit du 14 au 15 Mai, le Bataillon fait mouvement sur Fey où il passe la journée du 15.</p>`,
+`<div class="sign-block">
+  <p>Destinataire. Le Colonel Cdt. le XI° R.E.I.</p>
+  <p>S.P. 15015, le 19 Mai 1940.</p>
+  <p>Le Capitaine ROUILLON, Commandant le 1° Bataillon du XI° Régiment Étranger.</p>
+  <p class="signature">signé : Rouillon</p>
+</div>`,
+
+`<div class="letterhead small">
+  <p class="regiment">XI° RÉGIMENT ÉTRANGER D'INFANTERIE — I° BATAILLON</p>
+</div>
+<h2 class="doc-title">Extrait du journal de marche<span class="doc-sub">du 15 au 31 mai 1940</span></h2>
+<p><span class="date">15 Mai</span> – Le Bataillon, stationné à Nouilly, fait mouvement sur Fey où il stationne. Cantonnement suffisant. Les hommes se reposent une journée, ce qui était indispensable. Rien à signaler dans l'ensemble.</p>`,
+
+`<p><span class="date">16 Mai</span> – Repos au cantonnement pendant la journée. A 21h.30, le Bataillon fait mouvement sur Puxieux où il stationne toute la journée du 17.</p>`,
+`<p><span class="date">17 Mai</span> – Le Bataillon arrivé à Puxieux vers 3 heures du matin a repos dans son cantonnement jusqu'à 21h.30, heure à laquelle il est embarqué par camions. Aucun incident à signaler. L'embarquement s'effectue avec calme et discipline.</p>`,
+`<p><span class="date">18 Mai</span> – Le Bataillon bivouaque dans le bois à 2km.500 au sud de Brandeville. Le P.C. du Btn est installé à Brandeville. Les unités occupent les emplacements qui leur ont été indiqués dans les bois. Excellente position.</p>`,
+`<p>La 6° D.I.N.A. est mise à la disposition du 18° Corps d'Armée. Le dispositif est le suivant d'Ouest en Est : 21° R.T.A. – G.R.D.X – 11° R.E.I. – 9° R.T.M. Le 1° Bataillon est à l'Ouest du Régiment. La 10° Cie est en réserve de l'I.D. au bois de Blanc Poil.</p>`,
+
+`<p><span class="date">19 Mai</span> – Même ordre, même dispositif.</p>`,
+`<p><span class="date">20 Mai</span> – Même ordre, même dispositif. Repos au bivouac.</p>`,
+`<p>Le Bataillon se déplace dans la nuit du 20 au 21 effectuant un mouvement d'environ 26 kilomètres dans la direction Nord. Ce déplacement s'effectue par petites fractions très échelonnées vu que le Bataillon peut se trouver sous le feu de l'Artillerie ennemie. Le Bataillon et le P.C. bivouaquent dans le bois de Pâques. Seules les camionnettes restent à l'arrière. Rien à signaler.</p>`,
+
+`<p><span class="date">21 Mai</span> – Repos au bivouac dans le bois de Pâques. Une reconnaissance est effectuée par le Chef de Bataillon et les Commandants de Compagnies dans le bois de Neudan pour préparer la relève des unités de la 3° D.I.N.A., laquelle doit avoir lieu dans la nuit du 21 au 22.</p>`,
+`<p>Cette relève s'effectue à partir de 23 heures sous un violent bombardement qui provoque quelques pertes. La relève tout en s'effectuant normalement subit un certain retard par suite d'erreurs commises par des guides dont l'un conduit la 2° Compagnie (Capitaine SEILLON, qui avait reconnu exactement sa position) aux environs de la fontaine de Cran où elle a été entourée d'ennemis.</p>`,
+`<p>Le Capitaine SEILLON, faisant former le carré à sa compagnie afin d'attendre le jour, tenta de retrouver son chemin ; c'est alors qu'il disparut.</p>`,
+`<p>Le dispositif du Bataillon est alors le suivant :</p>
+<ul class="dispositif">
+  <li>P.C. du Bataillon : le bois carré situé entre le bois Le Ligant et le bois de Neudan, face à la cote 311.</li>
+  <li>1° Compagnie : 2 sections et demi, la partie Sud de la lisière du bois Le Ligant entre le bois carré jusqu'à 200m. Est de la fontaine de Cran. Une section 1/2 en réserve près du P.C. Bataillon.</li>
+  <li>2° Compagnie : Tient une partie de la face Nord du bois de Neudan sur un front d'environ 1 km. Sa droite s'appuyant à la corne Est de ce bois.</li>
+  <li>3° Compagnie : La face Est du bois de Neudan.</li>
+</ul>`,
+`<p>La 3° Compagnie a 3 sections en ligne et une section en réserve, la 2° Compagnie a ses quatre sections en ligne. La C.A.1 est répartie entre les différentes Compagnies.</p>`,
+`<p class="pertes-title">Pertes :</p>
+<ul class="pertes">
+  <li>FOKKINE, Adjudant-Chef, 1° Cie, éclat d'obus</li>
+  <li>HUGET, Adjudant, 2° Cie, éclat d'obus</li>
+  <li>VIEL, 3° Cie, balle mitrailleuse</li>
+</ul>`,
+
+`<p><span class="date">22 Mai</span> – Le Bataillon est en ligne à la droite du 2° Bataillon. Le 3° Btn est en réserve. Le 9° R.T.M. à la droite du Régiment. Même dispositif pour les Compagnies.</p>`,
+`<p class="pertes-title">Pertes :</p>
+<ul class="pertes two-col">
+  <li>MAULT, 2°cl., 3° Cie, blessé</li>
+  <li>ROUX, Lieutenant, 2° Cie, par balle (non évacué)</li>
+  <li>PETER, C.A.1, obus, blessé</li>
+  <li>HAUSER, 2°cl., tué par obus, C.A.1</li>
+  <li>HOLANCE, 2°cl., blessé, C.A.1</li>
+  <li>MORIS, 2°cl., C.A.1, blessé</li>
+  <li>BOURDIC, C.A.1, blessé</li>
+  <li>BRETEL, C.A.1, blessé</li>
+  <li>ANTOLIN, 2°cl., C.A.1, blessé</li>
+  <li>OLANEC, C.A.1, blessé</li>
+  <li>LOVINGER, Adjudant-Chef, C.A.1, blessé (non évacué)</li>
+  <li>REVY, 2°cl., 3° Cie, blessé</li>
+  <li>LACOURTE, Capl, blessé, 3° Cie</li>
+  <li>MAUER, 1°cl., 3° Cie, blessé</li>
+  <li>VIEL, 2°cl., 3° Cie, blessé</li>
+  <li>BETHELOT, 2°cl., 3° Cie, blessé</li>
+  <li>DEMAN, 2°cl., 3° Cie, blessé</li>
+  <li>BAER, sergent, 3° Cie, blessé</li>
+  <li>VACLAV, sergent, 3° Cie, blessé</li>
+  <li>BALDACHOF, 2°cl., 3° Cie, blessé</li>
+  <li>IAMROZ, 2°cl., 3° Cie, blessé</li>
+  <li>VAN DYCK, 2°cl., 3° Cie, blessé</li>
+  <li>RODES, 2°cl., 2° Cie, blessé</li>
+  <li>PALMA, 2°cl., 2° Cie, blessé</li>
+  <li>MARTIN, 2°cl., 2° Cie, blessé</li>
+  <li>VILAR, 2°cl., 2° Cie, blessé</li>
+  <li>PARAK, 2°cl., 2° Cie, blessé</li>
+  <li>METZ, 2°cl., 2° Cie, blessé</li>
+  <li>VAN DER LINDEN, 2°cl., 2° Cie, blessé</li>
+  <li>RAMEL, 2°cl., 2° Cie, blessé</li>
+  <li>VAN HOUTTE, 2°cl., 2° Cie, blessé</li>
+  <li>POUIEVIS, 2°cl., 2° Cie, blessé</li>
+  <li>SANCHEZ, 2°cl., 2° Cie, blessé</li>
+  <li>GETZLER, 2°cl., 2° Cie, blessé</li>
+  <li>GRANADO, 2°cl., 2° Cie, blessé</li>
+  <li>ALPINA, 2°cl., 2° Cie, blessé</li>
+  <li>LESAGE, 2°cl., 2° Cie, blessé</li>
+  <li>KISWETTER, 1°cl., 1° Cie, blessé</li>
+  <li>MONTFORT, Capl, 1° Cie, blessé</li>
+  <li>RAMOS, 2°cl., 1° Cie, blessé</li>
+  <li>MULLER, 2°cl., 1° Cie, blessé</li>
+</ul>`,
+
+`<p><span class="date">23 Mai</span> – La nuit du 22 au 23 est marquée par des infiltrations de patrouilleurs allemands dans le dispositif sans se montrer très agressifs, ils encerclent les postes, gênent les liaisons et règlent le tir d'Artillerie qui procède à de violents bombardements.</p>`,
+`<p>Dans la journée, le Lieutenant GHEYSENS est blessé mais non évacué, de même pour le Capitaine EMANUELLI. La journée est occupée par des travaux de fouilles pour abriter la troupe du bombardement et par la constitution d'un réseau de barbelé pour protéger les P.A.</p>`,
+`<p class="pertes-title">Pertes :</p>
+<ul class="pertes">
+  <li>DIMITRIEFF, sergent, C.A.1, blessé</li>
+  <li>TORRES, 2°cl., C.A.1, blessé</li>
+  <li>KOVACEVIECS, 2°cl., C.A.1, blessé</li>
+  <li>CERNER, 2°cl., 3° Cie, tué</li>
+  <li>SCZEPANIK, 1° Cie, blessé</li>
+</ul>`,
+
+`<p><span class="date">24 Mai</span> – Pendant la nuit du 23 au 24, de 21h.30 à 1h.00, incursion de patrouilleurs ennemis qui harcèlent les postes à coups de mitraillettes, de grenades et même de mitrailleuses et violent bombardement pendant la première partie de la nuit.</p>`,
+`<p>Pendant la journée, mêmes travaux, même dispositif. Dans la nuit du 23 au 24, les pertes subies par l'ennemi en face du secteur des 2° et 3° compagnies sont évaluées à 25 environ, dont deux Officiers.</p>`,
+`<p class="pertes-title">Pertes :</p>
+<ul class="pertes">
+  <li>VIGORSKY, 2°cl., 1° Cie, blessé</li>
+</ul>`,
+
+`<p><span class="date">25 Mai</span> – Dans la nuit du 24 au 25, de 22h.00 à 2h.00 du matin, des attaques peu appuyées ont eu lieu autour des P.A. de 1° échelon. Les attaques étaient menées à la grenade et à la mitrailleuse ainsi qu'avec une sorte de boîte à musique destinée à donner l'impression d'armes plus nombreuses qu'elles n'étaient réellement.</p>`,
+`<p>Il y a eu aussi, de la part de l'ennemi, direction de nombreux petits éléments épars autour du poste au moyen de fusées qui orientaient les équipes. Le P.C. Bataillon a été tranquille cette nuit. Des bombardements (minnen et 150) se sont produits en même temps, mais moins violents et moins prolongés que les nuits précédentes.</p>`,
+`<p>Dans la matinée, quelque activité de l'Artillerie ennemie, mais réduite. Le Lieutenant DROUINEAU, commandant une section de mitrailleuses au Sous-Quartier Ouest, est grièvement blessé et évacué.</p>`,
+`<p class="pertes-title">Pertes :</p>
+<ul class="pertes two-col">
+  <li>PENEC, 2°cl., 2° Cie, tué</li>
+  <li>BATOURINE, 2°cl., 2° Cie, tué</li>
+  <li>VUILLEMIN, 2°cl., 2° Cie, blessé</li>
+  <li>ENAF, 2°cl., 2° Cie, blessé</li>
+  <li>MATTEI, 2°cl., 2° Cie, blessé</li>
+  <li>DELORME, Capl, 1° Cie, tué</li>
+  <li>BALDASOFF, 2°cl., 3° Cie, blessé</li>
+  <li>VLASOFF, Capl, 3° Cie, blessé</li>
+  <li>FRANCIA, 2°cl., 3° Cie, blessé</li>
+  <li>OKANIEXSKI, 2°cl., C.A.1, tué</li>
+  <li>HAUTECOEUR, 2°cl., 2° Cie, tué</li>
+  <li>PULIDO DE LA MOTTE, 2°cl., 2° Cie, tué</li>
+  <li>PRIVATE, 2°cl., 2° Cie, tué</li>
+  <li>PAJANC, Capl, 2° Cie, blessé</li>
+</ul>`,
+
+`<p><span class="date">26 Mai</span> – Nuit agitée, les postes avancés ont été attaqués à plusieurs reprises et assez violemment. Au Nord-Est du bois de Neudan, une violente attaque avec armes automatiques et grenades, appuyée par des minnenwerfer, a été menée par des ennemis assez nombreux ; il y a un tué et 5 blessés dans le poste.</p>`,
+`<p>Le P.A. du centre de la 2° Compagnie a été harcelé mais sans agressivité à 22h.10, à 23h.00, 24h.00, 3h.00. Le P.A. le plus à l'Ouest de la 2° Compagnie n'a essuyé que quelques coups de mitraillettes ; il n'a pas répondu et l'ennemi n'a pas insisté.</p>`,
+`<p>Une patrouille prévue en direction de la route de Malandry n'a pu se faire car l'Artillerie amie a tiré presque toute la nuit dans le ravin de Malandry. La 3° Cie, sur la lisière Est du bois de Neudan, signale seulement quelques rafales de mitrailleuse accompagnées de tirs violents de minnen.</p>`,
+`<p>Une patrouille d'un groupe-franc commandée par le sergent DIEU a descendu, à 21h.30, les pentes Est du bois de Neudan jusqu'à la limite du s/quartier. Interrompue au retour par un feu violent d'Artillerie, elle a entendu des voix allemandes au bas des pentes Est du bois. L'ennemi semble au contact.</p>`,
+`<p class="pertes-title">Pertes :</p>
+<ul class="pertes">
+  <li>NAHIRNIAK, sergent, 2° Cie, tué</li>
+  <li>MADUREL, 2°cl., 2° Cie, blessé</li>
+  <li>DE HAENE, 2°cl., 2° Cie, blessé</li>
+  <li>QUERE, Capl, 2° Cie, blessé</li>
+  <li>VILALBA, 2°cl., 2° Cie, blessé</li>
+  <li>CRIQUILLON, 2°cl., 1° Cie, blessé</li>
+  <li>BOYER, 2°cl., 1° Cie, tué</li>
+  <li>LUEZACK, 2°cl., 1° Cie, blessé</li>
+  <li>BUHRER, 2°cl., 1° Cie, blessé</li>
+  <li>LIARD, 1° Cie, blessé</li>
+</ul>`,
+
+`<p><span class="date">27 Mai</span> – Après une violente préparation d'Artillerie, l'ennemi attaque avec trois divisions dans les Quartiers Ouest et Centre du Sous-Secteur. Il procède par infiltration d'éléments très audacieux, soutenu par un bombardement très violent.</p>`,
+`<p>L'effort se porte surtout sur la 2° Cie, à la droite de laquelle se trouve une section de mitrailleuses commandée par le Lieutenant ROUX ainsi qu'une section de mitrailleuses commandée par le Lieutenant MONDON. Vers 7h.00 du matin, l'ennemi ayant pénétré à l'intérieur de la position de la 2° Cie, la situation des éléments de la 2° Cie devient très délicate.</p>`,
+`<p>Cependant ils restent sur place tout en restant entourés d'ennemis. Pour nettoyer le bois sur l'arrière des positions de la 2° Cie, la section du s/Lieutenant SAUTOUR, de la 1° Cie, placée en réserve, est lancée dans le bois avec mission de le ratisser.</p>`,
+`<p>Vers la fin de la matinée, le 3° Bataillon, appuyé par des éléments du 3°, commence la contre-attaque qui doit dégager la 2° Cie et permettre de rétablir la ligne primitive. Jusqu'à la fin de l'après-midi, où l'on connut le succès de la contre-attaque, la situation de nos Compagnies de 1° échelon, 2° et 3°, est restée difficile, mais de beaux faits d'armes méritent d'être signalés.</p>`,
+`<p>Notamment celui du Caporal-Chef SPIEGEL qui, accompagné du Sergent de CONNINCK, réussit à arrêter une section ennemie, faisant 7 prisonniers dont un Officier et tuant le reste. Les corvées de ravitaillement en munitions, prises à la 1° Cie et à la C.A.1 et traversant tout le champ de bataille pour maintenir la liaison, ont eu un rôle obscur mais très dangereux et d'une utilité capitale.</p>`,
+`<p>C'est au cours de l'après-midi que le s/Lieutenant VERNY et le s/Lieutenant SAUTOUR ont été blessés et ont dû être évacués. Le P.C. de la 3° Cie, soumis à un violent bombardement, a été presque totalement détruit. Au cours de ce bombardement, le Capitaine EMANUELLI, Cdt. la 3° Cie, a été tué par éclat d'obus.</p>`,
+`<p>A la fin de l'après-midi, tout le terrain était nettoyé d'ennemis et la ligne primitive était conservée malgré l'attaque de forces très supérieures. Les 23 prisonniers faits par le Bataillon ne cachaient pas leur stupéfaction devant la résistance qui leur avait été opposée. Nos pertes ont été très élevées, à peu près 25 pour cent, mais d'après les déclarations des prisonniers, celles de l'adversaire étaient d'environ 25 à 50%.</p>`,
+
+`<p>Le Colonel, à la suite de ce combat, a fait savoir sa satisfaction à toutes les unités du Régiment, et le Général de VERDILHAC, Cdt la 6° D.I.N.A., a adressé les félicitations suivantes au Colonel ROBERT :</p>
+<blockquote>Mon cher ami<br>Trois mots : Bravo la Légion, à vous, à vos cadres, à vos hommes. De tout cœur</blockquote>
+<p class="ref" style="text-align:right;">signé : de Verdilhac</p>`,
+
+`<p class="pertes-title">Pertes :</p>
+<ul class="pertes two-col">
+  <li>ROMINGER, Caporal, 1° Cie, tué</li>
+  <li>GERARD, Caporal-Chef, 1° Cie, tué</li>
+  <li>SAUTOUR, S/Lt, 1° Cie, blessé</li>
+  <li>TIMMERMANN, sergent, 1° Cie, blessé</li>
+  <li>SLAIS, Caporal, 1° Cie, blessé</li>
+  <li>RUDRICKI, 2°cl., 1° Cie, blessé</li>
+  <li>CHIMIELSKY, 2°cl., 1° Cie</li>
+  <li>FERTSCHNING, 2°cl., 1° Cie, blessé</li>
+  <li>VILAIN, 2°cl., 1° Cie, blessé</li>
+  <li>BERNKOPF, 2°cl., 1° Cie, blessé</li>
+  <li>VALKOWIAK, 2°cl., 1° Cie, blessé</li>
+  <li>FABRE, 2°cl., 1° Cie, blessé</li>
+  <li>TEXIERA, 2°cl., 1° Cie, blessé</li>
+  <li>MOLERO, 2°cl., 1° Cie, blessé</li>
+  <li>MOROZ, 2°cl., 1° Cie, blessé</li>
+  <li>PARMONIK, 2°cl., 1° Cie, blessé (non évacué)</li>
+  <li>MAGNE, 2°cl., 1° Cie, blessé (non évacué)</li>
+  <li>PALMA, 2°cl., 2° Cie, blessé (non évacué)</li>
+  <li>HALFEIN, 2°cl., 2° Cie, blessé</li>
+  <li>KECKLER, 2°cl., 2° Cie, blessé</li>
+  <li>LOTOCKI, 2°cl., 2° Cie, blessé</li>
+  <li>VOLEC, 2°cl., 2° Cie, blessé</li>
+  <li>MANAI, 2°cl., 2° Cie, blessé</li>
+  <li>CZUNETSKI, 2°cl., 2° Cie, blessé</li>
+  <li>VERNY, S/Lt, 2° Cie, blessé</li>
+  <li>LAMBERT, sergent-chef, 2° Cie, blessé</li>
+  <li>BOSKO, 2°cl., 2° Cie</li>
+  <li>VYGA, 2°cl., 2° Cie, blessé</li>
+  <li>RODIUS, 2°cl., 2° Cie, blessé</li>
+  <li>CHANET, sergent-chef, 2° Cie, disparu (probablement évacué par un P.S.)</li>
+  <li>CACHAT, Adjudant-Chef, C.A.1 (à la disposition de la 2° Cie), blessé non évacué</li>
+  <li>EMANUELLI, Capitaine, Cdt 3° Cie, tué</li>
+  <li>DEVOS, 2°cl., 3° Cie, tué</li>
+  <li>SKUDLAPSKI, 2°cl., 3° Cie, tué</li>
+  <li>JASME, sergent-chef, 3° Cie, blessé</li>
+  <li>NOVOTNY, Caporal, 3° Cie, blessé</li>
+  <li>BERHO, 2°cl., 3° Cie, blessé</li>
+  <li>MONDRAKOFF, 2°cl., 3° Cie, blessé</li>
+  <li>TESSO, 2°cl., 3° Cie, blessé</li>
+  <li>DOMANGE, 2°cl., 1° Cie, blessé</li>
+  <li>HENRIKSEN, 2°cl., C.A.1, tué</li>
+  <li>OWZARSZAK, 2°cl., C.A.1, tué</li>
+  <li>BERKOVITS, Adjudant, blessé</li>
+  <li>SWIVEZ, 2°cl., C.A.1, blessé</li>
+  <li>JANKIEL, Caporal, 1° Cie, disparu</li>
+  <li>CASIRES, 2°cl., 1° Cie, disparu</li>
+  <li>FALTUS, 2°cl., 3° Cie, disparu</li>
+  <li>PORTE, 2°cl., C.A.1, disparu</li>
+  <li>LAGRANGE, 2°cl., C.A.1, disparu</li>
+  <li>KOVACIEWICZ, C.A.1, blessé</li>
+</ul>`,
+
+`<p><span class="date">28 Mai</span> – Dans la nuit du 27 au 28, l'ordre arrive de se replier sur la lisière Sud de la grande clairière du bois d'Inor. Il s'agit de tenir mieux le front en le raccourcissant ; le décrochage doit s'effectuer de nuit et le nouveau dispositif être en place au lever du jour.</p>`,
+`<p>La situation nouvelle du Bataillon est la suivante : en premier échelon, sur la lisière Sud de la grande clairière, la 3° Cie à gauche et la 1° Cie à droite. En 2° échelon, prête à procéder à des contre-attaques, la 2° Compagnie. Le P.C. Bataillon est placé dans les bois à l'Ouest, dans le Sud-Est du bois Le Ligant.</p>`,
+`<p>Le décrochage des éléments au contact s'est effectué sans difficultés sérieuses, la violence du combat de la veille ayant fait perdre à l'ennemi toute agressivité. Sur sa gauche, le Bataillon est en liaison avec le 3° Bataillon du XI° et sur sa droite avec le 1° Bataillon du 9° R.T.M.</p>`,
+`<p>Le Capitaine LEMOINE devient Adjudant-Major du 2° Bataillon. Le Lieutenant PIERRE prend le commandement de la 1° Cie. Le Lieutenant GHEYSENS prend le commandement de la 3° Cie en remplacement du Capitaine EMANUELLI, tué. Le Lieutenant SIGMANN prend le commandement de la C.A.1, remplaçant le Capitaine CLEMENT, qui devient Adjudant-Major du 1° Bataillon. Le s/Lieutenant COLIN, de la C.R.E., est affecté à la 1° Cie.</p>`,
+`<p>Pendant cette journée, l'ennemi n'a pas repris le contact et son Artillerie est restée inactive.</p>
+<p class="pertes-title">Pertes : Néant.</p>`,
+
+`<p><span class="date">29 Mai</span> – Le Bataillon s'installe sur ses nouvelles positions ; construction d'un P.C. Bataillon, d'emplacements de tir, élaboration du plan de feux, construction d'abris de bombardement, commencement d'un réseau de fil de fer barbelé.</p>`,
+
+`<p><span class="date">30 Mai</span> – Le contact n'a pas encore été repris dans le quartier. L'après-midi a été très calme dans les P.A. ; sur la lisière Nord de la clairière, les Compagnies de 1° échelon ont pu établir sans inconvénient, en plein jour, leur réseau de fil de fer barbelé.</p>`,
+`<p>Mais des tirs de harcèlement ont eu lieu dans l'après-midi, notamment sur le 2° échelon, la 2° Cie et le P.C. Bataillon.</p>
+<p class="pertes-title">Pertes :</p>
+<ul class="pertes">
+  <li>SCHLICHTER, 1°cl., C.A.1 (Section Cdt), tué</li>
+  <li>COLOMBO, 1°cl., C.A.1 (Section Cdt), blessé</li>
+  <li>RODRIGUEZ, 2°cl., C.A.1, blessé</li>
+  <li>GUINTOLI, 2°cl., C.A.1, blessé</li>
+  <li>SCHILLER, 2°cl., C.A.1 (Section Cdt), blessé</li>
+</ul>`,
+
+`<p><span class="date">31 Mai</span> – Vers 11h.15, une équipe de la 2° Cie qui travaillait au réseau de fil de fer a été prise à partie par un feu de mitraillette tiré de près. Il y a eu deux blessés. L'ordre a dû être donné de terminer de nuit le travail à découvert.</p>`,
+`<p>Dès lors, tout le premier échelon a terminé son réseau de fil de fer barbelé, mais les éléments légers de l'ennemi sont suffisamment au contact pour empêcher le travail de jour et à découvert. Dans l'après-midi, une patrouille de la 3° Cie, composée de 3 hommes commandés par le Caporal MANCHELINE, explore les lisières Ouest et Nord de la clairière avec mission de faire des prisonniers.</p>`,
+`<p>La patrouille observe, à l'intérieur du bois, les Allemands en train d'organiser le terrain, puis rencontre une patrouille ennemie de 12 hommes. Le Chef de patrouille est blessé et fait prisonnier ; les Allemands s'enfuient en laissant sur le terrain un blessé grave.</p>
+<p class="pertes-title">Pertes :</p>
+<ul class="pertes">
+  <li>Caporal MANCHELINE, 3° Cie, blessé</li>
+</ul>`,
+
+`<div class="sign-block">
+  <p>Le 1° juin 1940.</p>
+  <p>Le Capitaine ROUILLON, Commandant le 1/XI° R.E.I.</p>
+  <p class="signature">signé : Rouillon</p>
+</div>`
+
+];
+
+const book = document.getElementById('book');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const folioLabel = document.getElementById('folioLabel');
+let current = 0;
+let pages = [];
+
+// Assemble les blocs en pages, a taille de police FIXE, en mesurant sur une feuille cachee
+// qui a exactement les memes dimensions/police que les vraies pages.
+function computePages(){
+  const measureLeaf = document.createElement('div');
+  measureLeaf.className = 'leaf';
+  measureLeaf.style.visibility = 'hidden';
+  measureLeaf.style.zIndex = '-1';
+  measureLeaf.innerHTML = `<div class="face front">
+      <div class="page-chrome-top">XI° R.E.I. — I° Bataillon</div>
+      <div class="page-content" id="__measure__"></div>
+    </div>`;
+  book.appendChild(measureLeaf);
+  const mc = measureLeaf.querySelector('#__measure__');
+
+  const result = [];
+  let currentHtml = '';
+
+  blocks.forEach(blockHtml => {
+    const attempt = currentHtml + blockHtml;
+    mc.innerHTML = attempt;
+    const overflows = mc.scrollHeight > mc.clientHeight + 1;
+
+    if (!overflows) {
+      currentHtml = attempt;
+    } else if (currentHtml === '') {
+      // un seul bloc, deja trop grand pour une page : on le garde seul, sans le couper
+      result.push(blockHtml);
+      currentHtml = '';
+    } else {
+      result.push(currentHtml);
+      mc.innerHTML = blockHtml;
+      currentHtml = mc.scrollHeight > mc.clientHeight + 1 ? blockHtml : blockHtml;
+    }
+  });
+  if (currentHtml) result.push(currentHtml);
+
+  book.removeChild(measureLeaf);
+  return result;
+}
+
+function buildBook(){
+  book.innerHTML = '';
+  pages.forEach((html, i) => {
+    const leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    leaf.dataset.index = i;
+    leaf.style.zIndex = pages.length - i;
+    leaf.innerHTML = `
+      <div class="face front">
+        <div class="page-chrome-top">XI° R.E.I. — I° Bataillon</div>
+        <div class="page-content">${html}</div>
+        <div class="folio">${i + 1}</div>
+        <div class="corner-fold" data-dir="next"></div>
+      </div>
+      <div class="face back">
+        <div class="corner-fold left" data-dir="prev"></div>
+      </div>`;
+    book.appendChild(leaf);
+  });
+}
+
+function updateUI(){
+  prevBtn.disabled = current === 0;
+  nextBtn.disabled = current === pages.length;
+  folioLabel.textContent = `Folio ${Math.min(current + 1, pages.length)} / ${pages.length}`;
+}
+
+function goNext(){
+  if (current >= pages.length) return;
+  const leaf = book.children[current];
+  leaf.classList.add('flipped');
+  leaf.style.zIndex = current;
+  current++;
+  updateUI();
+}
+
+function goPrev(){
+  if (current <= 0) return;
+  current--;
+  const leaf = book.children[current];
+  leaf.classList.remove('flipped');
+  leaf.style.zIndex = pages.length - current;
+  updateUI();
+}
+
+function rebuild(){
+  const wasCurrent = current;
+  pages = computePages();
+  current = Math.min(wasCurrent, pages.length);
+  buildBook();
+  // reapplique l'etat de pages deja tournees, en gardant la meme position
+  for (let i = 0; i < current; i++){
+    book.children[i].classList.add('flipped');
+    book.children[i].style.zIndex = i;
+  }
+  updateUI();
+}
+
+function init(){
+  pages = computePages();
+  buildBook();
+  updateUI();
+}
+
+init();
+
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(rebuild);
+}
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(rebuild, 200);
+});
+
+nextBtn.addEventListener('click', goNext);
+prevBtn.addEventListener('click', goPrev);
+
+book.addEventListener('click', (e) => {
+  const corner = e.target.closest('.corner-fold');
+  if (!corner) return;
+  if (corner.dataset.dir === 'next') goNext();
+  else goPrev();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') goNext();
+  if (e.key === 'ArrowLeft') goPrev();
+});
+</script>
+</body>
+</html>
