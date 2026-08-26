@@ -568,6 +568,18 @@ const folioLabel = document.getElementById('folioLabel');
 let current = 0;
 let pages = [];
 
+// Fenetre de rendu : on ne monte dans le DOM que les feuillets proches de la
+// page courante (au lieu des ~80-100 pages du carnet d'un coup). Chaque
+// feuillet rendu porte des transforms 3D + drop-shadow ; en garder autant
+// en meme temps sature la memoire du compositeur sur mobile et fait crasher
+// l'onglet ("Impossible d'ouvrir cette page"). Les feuillets deja tournes ou
+// pas encore atteints n'ont de toute facon aucun rendu visible distinct
+// (memes dimensions, position absolute, inset:0), donc ne pas les monter ne
+// change rien a l'affichage.
+const RENDER_BEHIND = 1;
+const RENDER_AHEAD = 2;
+const leafEls = []; // tableau creux : index de page -> element .leaf ou undefined
+
 // Assemble les blocs en pages, a taille de police FIXE, en mesurant sur une feuille cachee
 // qui a exactement les memes dimensions/police que les vraies pages.
 function computePages(){
@@ -608,25 +620,64 @@ function computePages(){
   return result;
 }
 
-function buildBook(){
-  book.innerHTML = '';
-  pages.forEach((html, i) => {
-    const leaf = document.createElement('div');
-    leaf.className = 'leaf';
-    leaf.dataset.index = i;
-    leaf.style.zIndex = pages.length - i;
-    leaf.innerHTML = `
+function leafContent(i){
+  return `
       <div class="face front">
         <div class="page-chrome-top">XI° R.E.I. — I° Bataillon</div>
-        <div class="page-content">${html}</div>
+        <div class="page-content">${pages[i]}</div>
         <div class="folio">${i + 1}</div>
         <div class="corner-fold" data-dir="next"></div>
       </div>
       <div class="face back">
         <div class="corner-fold left" data-dir="prev"></div>
       </div>`;
+}
+
+// Cree (si besoin) et positionne le feuillet i ; ne fait rien s'il est deja
+// monte et a jour.
+function ensureLeaf(i){
+  if (i < 0 || i >= pages.length) return null;
+  let leaf = leafEls[i];
+  if (!leaf){
+    leaf = document.createElement('div');
+    leaf.className = 'leaf';
+    leaf.dataset.index = i;
+    leaf.innerHTML = leafContent(i);
+    leafEls[i] = leaf;
     book.appendChild(leaf);
+  }
+  if (i < current){
+    leaf.classList.add('flipped');
+    leaf.style.zIndex = i;
+  } else {
+    leaf.classList.remove('flipped');
+    leaf.style.zIndex = pages.length - i;
+  }
+  return leaf;
+}
+
+// Retire du DOM les feuillets sortis de la fenetre de rendu autour de current.
+function pruneLeaves(){
+  leafEls.forEach((leaf, i) => {
+    if (!leaf) return;
+    if (i < current - RENDER_BEHIND || i > current + RENDER_AHEAD){
+      leaf.remove();
+      leafEls[i] = undefined;
+    }
   });
+}
+
+function refreshWindow(){
+  const from = Math.max(0, current - RENDER_BEHIND);
+  const to = Math.min(pages.length - 1, current + RENDER_AHEAD);
+  for (let i = from; i <= to; i++) ensureLeaf(i);
+  pruneLeaves();
+}
+
+function buildBook(){
+  book.innerHTML = '';
+  leafEls.length = 0;
+  refreshWindow();
 }
 
 function updateUI(){
@@ -637,19 +688,21 @@ function updateUI(){
 
 function goNext(){
   if (current >= pages.length) return;
-  const leaf = book.children[current];
+  const leaf = ensureLeaf(current);
   leaf.classList.add('flipped');
   leaf.style.zIndex = current;
   current++;
+  refreshWindow();
   updateUI();
 }
 
 function goPrev(){
   if (current <= 0) return;
   current--;
-  const leaf = book.children[current];
+  const leaf = ensureLeaf(current);
   leaf.classList.remove('flipped');
   leaf.style.zIndex = pages.length - current;
+  refreshWindow();
   updateUI();
 }
 
@@ -658,11 +711,6 @@ function rebuild(){
   pages = computePages();
   current = Math.min(wasCurrent, pages.length);
   buildBook();
-  // reapplique l'etat de pages deja tournees, en gardant la meme position
-  for (let i = 0; i < current; i++){
-    book.children[i].classList.add('flipped');
-    book.children[i].style.zIndex = i;
-  }
   updateUI();
 }
 
@@ -679,7 +727,15 @@ if (document.fonts && document.fonts.ready) {
 }
 
 let resizeTimer;
+let lastInnerHeight = window.innerHeight;
 window.addEventListener('resize', () => {
+  // Sur mobile, l'apparition/disparition de la barre d'adresse declenche un
+  // 'resize' pour quelques dizaines de pixels de hauteur ; ignorer ces
+  // micro-variations evite de relancer inutilement computePages()+buildBook()
+  // (couteux) a chaque scroll.
+  const h = window.innerHeight;
+  if (Math.abs(h - lastInnerHeight) < 100) return;
+  lastInnerHeight = h;
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(rebuild, 200);
 });
